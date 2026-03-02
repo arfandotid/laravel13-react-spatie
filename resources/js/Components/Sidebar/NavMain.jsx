@@ -57,7 +57,7 @@ export function NavMain() {
                             className="group/collapsible"
                         >
                             <SidebarMenuItem>
-                                {item.dropdown ? (
+                                {filteredDropdown.length > 0 ? (
                                     <>
                                         <CollapsibleTrigger asChild>
                                             <SidebarMenuButton
@@ -71,7 +71,7 @@ export function NavMain() {
                                         </CollapsibleTrigger>
                                         <CollapsibleContent>
                                             <SidebarMenuSub>
-                                                {item.dropdown?.map(
+                                                {filteredDropdown.map(
                                                     (subItem) => (
                                                         <SidebarMenuSubItem
                                                             key={subItem.name}

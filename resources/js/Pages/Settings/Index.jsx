@@ -29,11 +29,11 @@ import PageHeader from "@/Shared/PageHeader";
 
 export default function SettingsIndex() {
     // destructure "setting" dari props page
-    const { setting } = usePage().props;
+    const { settings } = usePage().props;
 
     // inisialisasi useForm dengan data awal dari "setting"
     const { data, setData, post, processing, errors } = useForm({
-        app_name: setting?.app_name || "",
+        app_name: settings?.app_name || "",
         app_logo: null,
 
         _method: "PUT",
@@ -93,16 +93,16 @@ export default function SettingsIndex() {
                                         }
                                         accept="image/png, image/jpeg, image/jpg"
                                     />
-                                    {setting?.app_logo && (
+                                    {settings?.app_logo && (
                                         <>
                                             <a
-                                                href={setting?.app_logo}
+                                                href={settings?.app_logo}
                                                 target="_blank"
                                                 className="cursor-zoom-in"
                                             >
                                                 <img
                                                     src={
-                                                        setting?.app_logo || ""
+                                                        settings?.app_logo || ""
                                                     }
                                                     alt="Logo Aplikasi"
                                                     className="w-10 h-10 object-contain border rounded-md"
