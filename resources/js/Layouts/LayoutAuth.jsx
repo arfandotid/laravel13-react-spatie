@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/Components/ThemeProvider";
 import { ThemeToggle } from "@/Components/ThemeToggle";
+import { APP_URL } from "@/constants/app";
 import { usePage } from "@inertiajs/react";
 import { GalleryVerticalEnd } from "lucide-react";
 
@@ -23,7 +24,11 @@ export default function LayoutAuth({ children }) {
                         >
                             {settings?.app_logo ? (
                                 <img
-                                    src={settings.app_logo}
+                                    src={
+                                        APP_URL +
+                                        "/uploads/settings/logo/" +
+                                        settings.app_logo
+                                    }
                                     alt="App Logo"
                                     className="flex size-6 items-center justify-center rounded-md"
                                 />

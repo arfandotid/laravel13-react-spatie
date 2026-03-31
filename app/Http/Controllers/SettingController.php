@@ -103,7 +103,8 @@ class SettingController extends Controller implements HasMiddleware
 
         // hapus logo desa jika ada
         if ($setting->app_logo) {
-            $this->deleteFile($setting->app_logo);
+            $path  = 'uploads/settings/logo/';
+            $this->deleteFile($path . $setting->app_logo);
         }
 
         // update setting dengan logo kosong

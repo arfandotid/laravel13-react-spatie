@@ -43,7 +43,7 @@ export default function LayoutApp({ children }) {
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <SidebarProvider>
                 <AppSidebar auth={auth} />
-                <SidebarInset>
+                <SidebarInset className="min-w-0">
                     <header className="flex h-16 shrink-0 items-center justify-between px-4">
                         {/* LEFT SIDE */}
                         <div className="flex items-center gap-2">

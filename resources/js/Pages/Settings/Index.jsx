@@ -5,27 +5,20 @@ import { Head, useForm, usePage, router } from "@inertiajs/react";
 import LayoutApp from "@/Layouts/LayoutApp";
 
 // import icons
-import { Save, Trash2, Upload } from "lucide-react";
+import { Save, Trash2 } from "lucide-react";
 
 // SweetAlert2
 import Swal from "sweetalert2";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/Components/ui/card";
-import {
     Field,
     FieldDescription,
-    FieldGroup,
     FieldLabel,
     FieldSet,
 } from "@/Components/ui/field";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import PageHeader from "@/Shared/PageHeader";
+import { APP_URL } from "@/constants/app";
 
 export default function SettingsIndex() {
     // destructure "setting" dari props page
@@ -49,7 +42,7 @@ export default function SettingsIndex() {
     };
 
     // method deleteLogo
-    const deleteLogo = async (id) => {
+    const deleteLogo = async () => {
         // show sweet alert
         Swal.fire({
             title: "Apakah Anda Yakin?",
@@ -96,13 +89,19 @@ export default function SettingsIndex() {
                                     {settings?.app_logo && (
                                         <>
                                             <a
-                                                href={settings?.app_logo}
+                                                href={
+                                                    APP_URL +
+                                                    "/uploads/settings/logo/" +
+                                                    settings?.app_logo
+                                                }
                                                 target="_blank"
                                                 className="cursor-zoom-in"
                                             >
                                                 <img
                                                     src={
-                                                        settings?.app_logo || ""
+                                                        APP_URL +
+                                                        "/uploads/settings/logo/" +
+                                                        settings?.app_logo
                                                     }
                                                     alt="Logo Aplikasi"
                                                     className="w-10 h-10 object-contain border rounded-md"

@@ -1,6 +1,6 @@
 "use client";
 
-import { Command, LayoutDashboard, Settings2 } from "lucide-react";
+import { Command } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -13,31 +13,7 @@ import {
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { usePage } from "@inertiajs/react";
-
-const data = {
-    navMain: [
-        {
-            title: "Dashboard",
-            url: "/dashboard",
-            icon: LayoutDashboard,
-        },
-        {
-            title: "Settings",
-            url: "/settings",
-            icon: Settings2,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-            ],
-        },
-    ],
-};
+import { APP_URL } from "@/constants/app";
 
 export function AppSidebar({ auth, ...props }) {
     // destructure "settings" dari props page
@@ -49,13 +25,13 @@ export function AppSidebar({ auth, ...props }) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <a href="#">
+                            <a href="/">
                                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                                     {settings?.app_logo ? (
                                         <img
                                             src={
-                                                import.meta.env.VITE_APP_URL +
-                                                "/" +
+                                                APP_URL +
+                                                "/uploads/settings/logo/" +
                                                 settings.app_logo
                                             }
                                             alt="App Logo"
@@ -77,7 +53,7 @@ export function AppSidebar({ auth, ...props }) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser auth={auth} />

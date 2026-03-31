@@ -12,11 +12,11 @@ trait FileUploadTrait
         if ($request->hasFile($inputName)) {
             $file = $request->{$inputName};
             $ext =  $file->getClientOriginalExtension();
-            $fileName = 'media_' . uniqid() . '.' . $ext;
+            $fileName = uniqid() . '.' . $ext;
 
             $file->move(public_path($path), $fileName);
 
-            return $path . '/' . $fileName;
+            return $fileName;
         }
     }
 
@@ -28,11 +28,11 @@ trait FileUploadTrait
 
             foreach ($files as $file) {
                 $ext =  $file->getClientOriginalExtension();
-                $fileName = 'media_' . uniqid() . '.' . $ext;
+                $fileName = uniqid() . '.' . $ext;
 
                 $file->move(public_path($path), $fileName);
 
-                $filePaths[] = $path . '/' . $fileName;
+                $filePaths[] = $fileName;
             }
 
             return $filePaths;
@@ -51,7 +51,7 @@ trait FileUploadTrait
 
             $file->move(public_path($path), $fileName);
 
-            return $path . '/' . $fileName;
+            return $fileName;
         }
     }
 
