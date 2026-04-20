@@ -15,12 +15,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UserController extends Controller implements HasMiddleware
 {
-    /**
-     * middleware
-     *
-     * @return array
-     */
-    public static function middleware(): array
+    public static function middleware()
     {
         return [
             new Middleware(['permission:users.index'], only: ['index']),
@@ -30,12 +25,7 @@ class UserController extends Controller implements HasMiddleware
         ];
     }
 
-    /**
-     * index
-     *
-     * @return Response
-     */
-    public function index(): Response
+    public function index()
     {
         $users = User::query()
             ->with('roles:id,name')
@@ -46,34 +36,21 @@ class UserController extends Controller implements HasMiddleware
                 });
             })
             ->latest()
-            ->paginate(5);
+            ->paginate(5)
+            ->withQueryString();
 
         $users->appends(['q' => request()->q]);
 
-        return Inertia::render('Users/Index', [
-            'users' => $users,
-        ]);
+        return Inertia::render('Users/Index', compact('users'));
     }
 
-    /**
-     * create
-     *
-     * @return Response
-     */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Users/Create', [
-            'roles' => Role::select('id', 'name')->orderBy('name')->get(),
-        ]);
+        $roles = Role::select('id', 'name')->orderBy('name')->get();
+        return Inertia::render('Users/Create', compact('roles'));
     }
 
-    /**
-     * store
-     *
-     * @param  Request $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name'     => 'required|string|max:255',
@@ -92,36 +69,19 @@ class UserController extends Controller implements HasMiddleware
         // assign role
         $user->syncRoles($request->roles);
 
-        return redirect()
-            ->route('users.index')
-            ->with('success', 'User created successfully.');
+        return redirect()->to('/users')->with('success', 'User created successfully.');
     }
 
-    /**
-     * edit
-     *
-     * @param  User $user
-     * @return Response
-     */
-    public function edit(User $user): Response
+    public function edit(User $user)
     {
         $user->load('roles');
+        $roles = Role::select('id', 'name')->orderBy('name')->get();
+        $userRoles = $user->roles->pluck('id');
 
-        return Inertia::render('Users/Edit', [
-            'user' => $user,
-            'roles' => Role::select('id', 'name')->orderBy('name')->get(),
-            'userRoles' => $user->roles->pluck('id'),
-        ]);
+        return Inertia::render('Users/Edit', compact('user', 'roles', 'userRoles'));
     }
 
-    /**
-     * update
-     *
-     * @param  Request $request
-     * @param  User $user
-     * @return RedirectResponse
-     */
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(Request $request, User $user)
     {
         $request->validate([
             'name'     => 'required|string|max:255',
@@ -146,23 +106,13 @@ class UserController extends Controller implements HasMiddleware
         // sync role
         $user->syncRoles($request->roles);
 
-        return redirect()
-            ->route('users.index')
-            ->with('success', 'User updated successfully.');
+        return redirect()->to('/users')->with('success', 'User updated successfully.');
     }
 
-    /**
-     * destroy
-     *
-     * @param  User $user
-     * @return RedirectResponse
-     */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(User $user)
     {
         $user->delete();
 
-        return redirect()
-            ->route('users.index')
-            ->with('success', 'User deleted successfully.');
+        return redirect()->to('/users')->with('success', 'User deleted successfully.');
     }
 }

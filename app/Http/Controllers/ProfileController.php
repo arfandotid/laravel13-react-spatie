@@ -32,10 +32,10 @@ class ProfileController extends Controller
         try {
             $user->save();
         } catch (\Exception $e) {
-            return redirect()->route('profile.index')->with('error', 'Failed to update profile: ' . $e->getMessage());
+            return redirect()->to('/profile')->with('error', 'Failed to update profile: ' . $e->getMessage());
         }
 
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
+        return redirect()->to('/profile')->with('success', 'Profile updated successfully.');
     }
 
     public function changePassword()
@@ -54,14 +54,14 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId);
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return redirect()->route('profile.password.index')
+            return redirect()->to('/profile/password')
                 ->withErrors(
                     ['current_password' => 'Current password is incorrect.']
                 );
         }
 
         if (Hash::check($request->password, $user->password)) {
-            return redirect()->route('profile.password.index')
+            return redirect()->to('/profile/password')
                 ->withErrors(
                     ['password' => 'New password must be different from current password.']
                 );
@@ -72,9 +72,9 @@ class ProfileController extends Controller
         try {
             $user->save();
         } catch (\Exception $e) {
-            return redirect()->route('profile.password.index')->with('error', 'Failed to update password: ' . $e->getMessage());
+            return redirect()->to('/profile/password')->with('error', 'Failed to update password: ' . $e->getMessage());
         }
 
-        return redirect()->route('profile.password.index')->with('success', 'Password updated successfully.');
+        return redirect()->to('/profile/password')->with('success', 'Password updated successfully.');
     }
 }

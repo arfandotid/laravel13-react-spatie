@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
 
-    /**
-     * index
-     *
-     * @return void
-     */
     public function index()
     {
-        return inertia('Dashboard/Index');
+        return Inertia::render('Dashboard/Index');
     }
 }

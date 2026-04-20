@@ -15,12 +15,8 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 class SettingController extends Controller implements HasMiddleware
 {
     use FileUploadTrait;
-    /**
-     * middleware
-     *
-     * @return array
-     */
-    public static function middleware(): array
+
+    public static function middleware()
     {
         return [
             new Middleware(['permission:settings.index'], only: ['index']),
@@ -28,29 +24,16 @@ class SettingController extends Controller implements HasMiddleware
         ];
     }
 
-    /**
-     * index
-     *
-     * @return Response
-     */
-    public function index(): Response
+    public function index()
     {
         // setting hanya 1 data
         $setting = Setting::first();
 
         // return inertia
-        return Inertia::render('Settings/Index', [
-            'setting' => $setting,
-        ]);
+        return Inertia::render('Settings/Index', compact('setting'));
     }
 
-    /**
-     * update
-     *
-     * @param  Request $request
-     * @return RedirectResponse
-     */
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request)
     {
         // setting hanya 1 data
         $setting = Setting::firstOrFail();
@@ -85,18 +68,10 @@ class SettingController extends Controller implements HasMiddleware
         $setting->update($data);
 
         // kembali ke halaman setting
-        return redirect()
-            ->route('settings.index')
-            ->with('success', 'Setting updated successfully.');
+        return redirect()->to('/settings')->with('success', 'Setting updated successfully.');
     }
 
-    /**
-     * deleteLogo
-     *
-     * @param  Request $request
-     * @return RedirectResponse
-     */
-    public function deleteLogo(Request $request): RedirectResponse
+    public function deleteLogo()
     {
         // setting hanya 1 data
         $setting = Setting::firstOrFail();
@@ -113,8 +88,6 @@ class SettingController extends Controller implements HasMiddleware
         ]);
 
         // kembali ke halaman setting
-        return redirect()
-            ->route('settings.index')
-            ->with('success', 'Logo aplikasi berhasil dihapus.');
+        return redirect()->to('/settings')->with('success', 'Logo aplikasi berhasil dihapus.');
     }
 }

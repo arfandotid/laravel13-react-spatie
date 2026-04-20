@@ -3,22 +3,15 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class PermissionController extends Controller implements HasMiddleware
 {
-    /**
-     * middleware
-     *
-     * @return array
-     */
-    public static function middleware(): array
+    public static function middleware()
     {
         return [
             new Middleware(['permission:permissions.index'], only: ['index']),
@@ -28,44 +21,27 @@ class PermissionController extends Controller implements HasMiddleware
         ];
     }
 
-    /**
-     * index
-     *
-     * @return Response
-     */
-    public function index(): Response
+    public function index()
     {
         $permissions = Permission::query()
             ->when(request()->q, function ($permissions) {
                 $permissions->where('name', 'like', '%' . request()->q . '%');
             })
             ->latest()
-            ->paginate(5);
+            ->paginate(5)
+            ->withQueryString();
 
         $permissions->appends(['q' => request()->q]);
 
-        return Inertia::render('Permissions/Index', [
-            'permissions' => $permissions,
-        ]);
+        return Inertia::render('Permissions/Index', compact('permissions'));
     }
 
-    /**
-     * create
-     *
-     * @return Response
-     */
-    public function create(): Response
+    public function create()
     {
         return Inertia::render('Permissions/Create');
     }
 
-    /**
-     * store
-     *
-     * @param  Request $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|unique:permissions,name',
@@ -75,32 +51,15 @@ class PermissionController extends Controller implements HasMiddleware
             'name' => $request->name,
         ]);
 
-        return redirect()
-            ->route('permissions.index')
-            ->with('success', 'Permission created successfully.');
+        return redirect()->to('/permissions')->with('success', 'Permission created successfully.');
     }
 
-    /**
-     * edit
-     *
-     * @param  Permission $permission
-     * @return Response
-     */
-    public function edit(Permission $permission): Response
+    public function edit(Permission $permission)
     {
-        return Inertia::render('Permissions/Edit', [
-            'permission' => $permission,
-        ]);
+        return Inertia::render('Permissions/Edit', compact('permission'));
     }
 
-    /**
-     * update
-     *
-     * @param  Request $request
-     * @param  Permission $permission
-     * @return RedirectResponse
-     */
-    public function update(Request $request, Permission $permission): RedirectResponse
+    public function update(Request $request, Permission $permission)
     {
         $request->validate([
             'name' => 'required|unique:permissions,name,' . $permission->id,
@@ -110,23 +69,13 @@ class PermissionController extends Controller implements HasMiddleware
             'name' => $request->name,
         ]);
 
-        return redirect()
-            ->route('permissions.index')
-            ->with('success', 'Permission updated successfully.');
+        return redirect()->to('/permissions')->with('success', 'Permission updated successfully.');
     }
 
-    /**
-     * destroy
-     *
-     * @param  Permission $permission
-     * @return RedirectResponse
-     */
-    public function destroy(Permission $permission): RedirectResponse
+    public function destroy(Permission $permission)
     {
         $permission->delete();
 
-        return redirect()
-            ->route('permissions.index')
-            ->with('success', 'Permission deleted successfully.');
+        return redirect()->to('/permissions')->with('success', 'Permission deleted successfully.');
     }
 }

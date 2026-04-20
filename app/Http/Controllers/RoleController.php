@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Routing\Controllers\Middleware;
@@ -14,12 +12,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class RoleController extends Controller implements HasMiddleware
 {
-    /**
-     * middleware
-     *
-     * @return array
-     */
-    public static function middleware(): array
+    public static function middleware()
     {
         return [
             new Middleware(['permission:roles.index'], only: ['index']),
@@ -29,12 +22,7 @@ class RoleController extends Controller implements HasMiddleware
         ];
     }
 
-    /**
-     * index
-     *
-     * @return Response
-     */
-    public function index(): Response
+    public function index()
     {
         $roles = Role::query()
             ->when(request()->q, function ($roles) {
@@ -42,34 +30,20 @@ class RoleController extends Controller implements HasMiddleware
             })
             ->withCount('permissions')
             ->latest()
-            ->paginate(5);
+            ->paginate(5)
+            ->withQueryString();
 
         $roles->appends(['q' => request()->q]);
 
-        return Inertia::render('Roles/Index', [
-            'roles' => $roles,
-        ]);
+        return Inertia::render('Roles/Index', compact('roles'));
     }
 
-    /**
-     * create
-     *
-     * @return Response
-     */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Roles/Create', [
-            'permissions' => Permission::select('id', 'name')->orderBy('name')->get(),
-        ]);
+        $permissions = Permission::select('id', 'name')->orderBy('name')->get();
+        return Inertia::render('Roles/Create', compact('permissions'));
     }
-
-    /**
-     * store
-     *
-     * @param  Request $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|unique:roles,name',
@@ -87,36 +61,19 @@ class RoleController extends Controller implements HasMiddleware
             $role->syncPermissions($request->permissions);
         }
 
-        return redirect()
-            ->route('roles.index')
-            ->with('success', 'Role created successfully.');
+        return redirect()->to('/roles')->with('success', 'Role created successfully.');
     }
 
-    /**
-     * edit
-     *
-     * @param  Role $role
-     * @return Response
-     */
-    public function edit(Role $role): Response
+    public function edit(Role $role)
     {
         $role->load('permissions');
+        $permissions = Permission::select('id', 'name')->orderBy('name')->get();
+        $rolePermissions = $role->permissions->pluck('id');
 
-        return Inertia::render('Roles/Edit', [
-            'role' => $role,
-            'permissions' => Permission::select('id', 'name')->orderBy('name')->get(),
-            'rolePermissions' => $role->permissions->pluck('id'),
-        ]);
+        return Inertia::render('Roles/Edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
-    /**
-     * update
-     *
-     * @param  Request $request
-     * @param  Role $role
-     * @return RedirectResponse
-     */
-    public function update(Request $request, Role $role): RedirectResponse
+    public function update(Request $request, Role $role)
     {
         $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
@@ -132,23 +89,13 @@ class RoleController extends Controller implements HasMiddleware
         // sync permissions
         $role->syncPermissions($request->permissions ?? []);
 
-        return redirect()
-            ->route('roles.index')
-            ->with('success', 'Role updated successfully.');
+        return redirect()->to('/roles')->with('success', 'Role updated successfully.');
     }
 
-    /**
-     * destroy
-     *
-     * @param  Role $role
-     * @return RedirectResponse
-     */
-    public function destroy(Role $role): RedirectResponse
+    public function destroy(Role $role)
     {
         $role->delete();
 
-        return redirect()
-            ->route('roles.index')
-            ->with('success', 'Role deleted successfully.');
+        return redirect()->to('/roles')->with('success', 'Role deleted successfully.');
     }
 }
