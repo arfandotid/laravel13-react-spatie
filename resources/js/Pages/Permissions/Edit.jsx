@@ -1,13 +1,6 @@
-// import Head dan Link dari Inertia
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-
-// import LayoutApp
 import LayoutApp from "@/Layouts/LayoutApp";
-
-// import icons
 import { Save } from "lucide-react";
-
-// import component PageHeader
 import PageHeader from "@/Shared/PageHeader";
 import { Button } from "@/Components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/Components/ui/field";
@@ -67,13 +60,13 @@ export default function PermissionsEdit() {
 
                     {/* Tombol Aksi */}
                     <div className="flex justify-start space-x-2 pt-6">
-                        <Link href="/permissions">
-                            <Button variant="outline">Batal</Button>
-                        </Link>
                         <Button type="submit" disabled={processing}>
                             <Save />
                             {processing ? "Menyimpan..." : "Simpan Perubahan"}
                         </Button>
+                        <Link href="/permissions">
+                            <Button variant="outline">Batal</Button>
+                        </Link>
                     </div>
                 </form>
             </LayoutApp>

@@ -1,12 +1,6 @@
-// import Head dan Inertia hooks
 import { Head, useForm } from "@inertiajs/react";
-
-// import LayoutApp
 import LayoutApp from "@/Layouts/LayoutApp";
-
-// import icons
 import { Save } from "lucide-react";
-
 import {
     Field,
     FieldDescription,
@@ -105,8 +99,6 @@ export default function ChangePassword() {
                                 </FieldDescription>
                             )}
                         </Field>
-
-                        {/* Action */}
                         <div>
                             <Button type="submit" disabled={processing}>
                                 <Save />
