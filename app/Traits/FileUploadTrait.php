@@ -42,8 +42,8 @@ trait FileUploadTrait
     public function updateFile(Request $request, $inputName, $path, $oldPath = null)
     {
         if ($request->hasFile($inputName)) {
-            if (File::exists(public_path($oldPath))) {
-                File::delete(public_path($oldPath));
+            if (File::exists(public_path($path.'/'.$oldPath))) {
+                File::delete(public_path($path.'/'.$oldPath));
             }
             $file = $request->{$inputName};
             $ext =  $file->getClientOriginalExtension();
