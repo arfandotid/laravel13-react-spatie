@@ -12,6 +12,9 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        //permission dashboard
+        Permission::create(['name' => 'dashboard.index', 'guard_name' => 'web']);
+
         //permission users
         Permission::create(['name' => 'users.index', 'guard_name' => 'web']);
         Permission::create(['name' => 'users.create', 'guard_name' => 'web']);

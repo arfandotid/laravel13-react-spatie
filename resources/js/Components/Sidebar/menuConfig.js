@@ -16,6 +16,7 @@ export const menuItems = [
     {
         name: "Dashboard",
         icon: LayoutDashboard,
+        permissions: ["dashboard.index"],
         href: "/admin/dashboard",
     },
     {

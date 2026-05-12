@@ -33,7 +33,7 @@ class UserController extends Controller implements HasMiddleware
                         ->orWhere('email', 'like', '%' . request()->q . '%');
                 });
             })
-            ->latest()
+            ->orderBy('id','desc')
             ->paginate(5)
             ->withQueryString();
 

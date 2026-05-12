@@ -29,7 +29,7 @@ class RoleController extends Controller implements HasMiddleware
                 $roles->where('name', 'like', '%' . request()->q . '%');
             })
             ->withCount('permissions')
-            ->latest()
+            ->orderBy('id','desc')
             ->paginate(5)
             ->withQueryString();
 

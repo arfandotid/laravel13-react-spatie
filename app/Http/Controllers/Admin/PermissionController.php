@@ -27,7 +27,7 @@ class PermissionController extends Controller implements HasMiddleware
             ->when(request()->q, function ($permissions) {
                 $permissions->where('name', 'like', '%' . request()->q . '%');
             })
-            ->latest()
+            ->orderBy('id','desc')
             ->paginate(5)
             ->withQueryString();
 
