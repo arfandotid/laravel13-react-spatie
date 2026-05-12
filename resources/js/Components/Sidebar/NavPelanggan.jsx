@@ -1,0 +1,108 @@
+"use client";
+
+import { ChevronRight } from "lucide-react";
+
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubButton,
+    SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
+import { Link, usePage } from "@inertiajs/react";
+
+// import menuConfig
+import { menuItems } from "./menuPelanggan";
+
+export function NavPelanggan() {
+    const { url } = usePage();
+
+    return (
+        <SidebarGroup>
+            <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
+            <SidebarMenu>
+                {menuItems.map((item) => {
+                    const isDropdownActive =
+                        item.dropdown &&
+                        item.dropdown.some((subItem) =>
+                            url.startsWith(subItem.href),
+                        );
+
+                    return (
+                        <Collapsible
+                            key={item.name}
+                            asChild
+                            defaultOpen={isDropdownActive}
+                            className="group/collapsible"
+                        >
+                            <SidebarMenuItem>
+                                {item.dropdown && item.dropdown.length > 0 ? (
+                                    <>
+                                        <CollapsibleTrigger asChild>
+                                            <SidebarMenuButton
+                                                tooltip={item.name}
+                                                isActive={isDropdownActive}
+                                            >
+                                                {item.icon && <item.icon />}
+                                                <span>{item.name}</span>
+                                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            </SidebarMenuButton>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent>
+                                            <SidebarMenuSub>
+                                                {item.dropdown.map(
+                                                    (subItem) => (
+                                                        <SidebarMenuSubItem
+                                                            key={subItem.name}
+                                                        >
+                                                            <SidebarMenuSubButton
+                                                                asChild
+                                                                isActive={url.startsWith(
+                                                                    subItem.href,
+                                                                )}
+                                                            >
+                                                                <Link
+                                                                    href={
+                                                                        subItem.href
+                                                                    }
+                                                                >
+                                                                    <span>
+                                                                        {
+                                                                            subItem.name
+                                                                        }
+                                                                    </span>
+                                                                </Link>
+                                                            </SidebarMenuSubButton>
+                                                        </SidebarMenuSubItem>
+                                                    ),
+                                                )}
+                                            </SidebarMenuSub>
+                                        </CollapsibleContent>
+                                    </>
+                                ) : (
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={url.startsWith(item.href)}
+                                    >
+                                        <Link href={item.href}>
+                                            <item.icon />
+                                            <span>{item.name}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                )}
+                            </SidebarMenuItem>
+                        </Collapsible>
+                    );
+                })}
+            </SidebarMenu>
+        </SidebarGroup>
+    );
+}

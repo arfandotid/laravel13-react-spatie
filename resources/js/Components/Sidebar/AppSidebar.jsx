@@ -14,6 +14,9 @@ import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { usePage } from "@inertiajs/react";
 import { APP_URL } from "@/constants/app";
+import { NavTukang } from "./NavTukang";
+import { hasRole } from "@/Utils/Permission";
+import { NavPelanggan } from "./NavPelanggan";
 
 export function AppSidebar({ auth, ...props }) {
     // destructure "settings" dari props page
@@ -53,7 +56,9 @@ export function AppSidebar({ auth, ...props }) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain />
+                {hasRole("admin") && <NavMain />}
+                {hasRole("tukang") && <NavTukang />}
+                {hasRole("pelanggan") && <NavPelanggan />}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser auth={auth} />
