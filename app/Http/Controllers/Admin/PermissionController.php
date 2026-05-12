@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -33,12 +33,12 @@ class PermissionController extends Controller implements HasMiddleware
 
         $permissions->appends(['q' => request()->q]);
 
-        return Inertia::render('Permissions/Index', compact('permissions'));
+        return Inertia::render('Admin/Permissions/Index', compact('permissions'));
     }
 
     public function create()
     {
-        return Inertia::render('Permissions/Create');
+        return Inertia::render('Admin/Permissions/Create');
     }
 
     public function store(Request $request)
@@ -51,12 +51,12 @@ class PermissionController extends Controller implements HasMiddleware
             'name' => $request->name,
         ]);
 
-        return redirect()->to('/permissions')->with('success', 'Permission created successfully.');
+        return redirect()->to('/admin/permissions')->with('success', 'Permission created successfully.');
     }
 
     public function edit(Permission $permission)
     {
-        return Inertia::render('Permissions/Edit', compact('permission'));
+        return Inertia::render('Admin/Permissions/Edit', compact('permission'));
     }
 
     public function update(Request $request, Permission $permission)
@@ -69,13 +69,13 @@ class PermissionController extends Controller implements HasMiddleware
             'name' => $request->name,
         ]);
 
-        return redirect()->to('/permissions')->with('success', 'Permission updated successfully.');
+        return redirect()->to('/admin/permissions')->with('success', 'Permission updated successfully.');
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
 
-        return redirect()->to('/permissions')->with('success', 'Permission deleted successfully.');
+        return redirect()->to('/admin/permissions')->with('success', 'Permission deleted successfully.');
     }
 }

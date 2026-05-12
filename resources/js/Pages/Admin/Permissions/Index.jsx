@@ -51,14 +51,14 @@ export default function PermissionsIndex() {
                     showButton
                     title="Permissions"
                     description="Kelola permission untuk hak akses pengguna"
-                    action="/permissions/create"
+                    action="/admin/permissions/create"
                     actionText="Tambah Permission"
                     permission="permissions.create"
                 />
 
                 {/* Card */}
                 <div className="space-y-5">
-                    <Search URL={"/permissions"} />
+                    <Search URL={"/admin/permissions"} />
 
                     {/* Table */}
                     <Table>
@@ -85,7 +85,7 @@ export default function PermissionsIndex() {
                                                     "permissions.edit",
                                                 ]) && (
                                                     <Link
-                                                        href={`/permissions/${permission.id}/edit`}
+                                                        href={`/admin/permissions/${permission.id}/edit`}
                                                         title="Edit"
                                                     >
                                                         <Button
@@ -100,7 +100,9 @@ export default function PermissionsIndex() {
                                                     "permissions.delete",
                                                 ]) && (
                                                     <Delete
-                                                        URL={"/permissions"}
+                                                        URL={
+                                                            "/admin/permissions"
+                                                        }
                                                         id={permission.id}
                                                     />
                                                 )}

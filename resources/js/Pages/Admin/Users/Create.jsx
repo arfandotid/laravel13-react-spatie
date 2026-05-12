@@ -2,20 +2,20 @@ import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import LayoutApp from "@/Layouts/LayoutApp";
 import { Save } from "lucide-react";
 import PageHeader from "@/Shared/PageHeader";
-import { Input } from "@/Components/ui/input";
 import { Field, FieldDescription, FieldLabel } from "@/Components/ui/field";
+import { Input } from "@/Components/ui/input";
 import { Checkbox } from "@/Components/ui/checkbox";
 import { Button } from "@/Components/ui/button";
 
-export default function UsersEdit() {
-    const { user, roles, userRoles } = usePage().props;
+export default function UsersCreate() {
+    const { roles } = usePage().props;
 
-    const { data, setData, put, processing, errors } = useForm({
-        name: user.name || "",
-        email: user.email || "",
-        username: user.username || "",
+    const { data, setData, post, processing, errors } = useForm({
+        name: "",
+        email: "",
+        username: "",
         password: "",
-        roles: userRoles || [],
+        roles: [],
     });
 
     const toggleRole = (id) => {
@@ -30,16 +30,16 @@ export default function UsersEdit() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(`/users/${user.id}`);
+        post("/admin/users");
     };
 
     return (
         <>
-            <Head title={`Edit User - ${import.meta.env.VITE_APP_NAME}`} />
+            <Head title={`Tambah User`} />
             <LayoutApp>
                 <PageHeader
-                    title="Edit User"
-                    description="Perbarui data pengguna dan role akses"
+                    title="Tambah User"
+                    description="Buat akun pengguna dan tentukan role akses"
                 />
 
                 <form onSubmit={handleSubmit}>
@@ -96,7 +96,7 @@ export default function UsersEdit() {
                             )}
                         </Field>
                         <Field>
-                            <FieldLabel>Password (opsional)</FieldLabel>
+                            <FieldLabel>Password</FieldLabel>
                             <Input
                                 type="password"
                                 value={data.password}
@@ -104,7 +104,7 @@ export default function UsersEdit() {
                                     setData("password", e.target.value)
                                 }
                                 className={`${errors.password ? "border-red-500" : ""}`}
-                                placeholder="Kosongkan jika tidak ingin mengubah"
+                                placeholder="Minimal 8 karakter"
                             />
                             {errors.password && (
                                 <FieldDescription className="mt-1 text-sm text-red-600">
@@ -114,43 +114,34 @@ export default function UsersEdit() {
                         </Field>
                         <Field>
                             <FieldLabel>Roles</FieldLabel>
-
-                            <div className="grid grid-cols-1 gap-4">
-                                {roles.map((role) => (
-                                    <Field
-                                        orientation="horizontal"
-                                        key={role.id}
-                                    >
-                                        <Checkbox
-                                            id={`role-${role.id}`}
-                                            checked={data.roles.includes(
-                                                role.id,
-                                            )}
-                                            onCheckedChange={(checked) => {
-                                                toggleRole(role.id, checked);
-                                            }}
-                                        />
-                                        <FieldLabel htmlFor={`role-${role.id}`}>
-                                            {role.name}
-                                        </FieldLabel>
-                                    </Field>
-                                ))}
-                            </div>
+                            {roles.map((role) => (
+                                <Field orientation="horizontal" key={role.id}>
+                                    <Checkbox
+                                        id={`role-${role.id}`}
+                                        checked={data.roles.includes(role.id)}
+                                        onCheckedChange={(checked) => {
+                                            toggleRole(role.id, checked);
+                                        }}
+                                    />
+                                    <FieldLabel htmlFor={`role-${role.id}`}>
+                                        {role.name}
+                                    </FieldLabel>
+                                </Field>
+                            ))}
 
                             {errors.roles && (
-                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                <p className="mt-2 text-sm text-red-600">
                                     {errors.roles}
-                                </FieldDescription>
+                                </p>
                             )}
                         </Field>
                     </div>
-
                     <div className="flex justify-start space-x-2 pt-6">
                         <Button type="submit" disabled={processing}>
                             <Save />
-                            {processing ? "Menyimpan..." : "Simpan Perubahan"}
+                            {processing ? "Menyimpan..." : "Simpan"}
                         </Button>
-                        <Link href="/users">
+                        <Link href="/admin/users">
                             <Button variant="outline">Batal</Button>
                         </Link>
                     </div>

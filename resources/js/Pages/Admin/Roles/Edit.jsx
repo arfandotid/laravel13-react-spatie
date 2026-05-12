@@ -7,14 +7,14 @@ import { Input } from "@/Components/ui/input";
 import { Checkbox } from "@/Components/ui/checkbox";
 import { Button } from "@/Components/ui/button";
 
-export default function RolesCreate() {
-    // permissions dari controller
-    const { permissions } = usePage().props;
+export default function RolesEdit() {
+    // props dari controller
+    const { role, permissions, rolePermissions } = usePage().props;
 
     // useForm untuk mengelola form data
-    const { data, setData, post, processing, errors } = useForm({
-        name: "",
-        permissions: [],
+    const { data, setData, put, processing, errors } = useForm({
+        name: role.name || "",
+        permissions: rolePermissions || [],
     });
 
     // group permission berdasarkan prefix (roles.*, users.*, dll)
@@ -45,20 +45,20 @@ export default function RolesCreate() {
         e.preventDefault();
 
         // kirim data ke server
-        post("/roles");
+        put(`/admin/roles/${role.id}`);
     };
 
     return (
         <>
-            <Head title={`Tambah Role - ${import.meta.env.VITE_APP_NAME}`} />
+            <Head title={`Edit Role - ${import.meta.env.VITE_APP_NAME}`} />
             <LayoutApp>
                 {/* Header */}
                 <PageHeader
-                    title="Tambah Role"
-                    description="Buat role baru dan tentukan hak aksesnya"
+                    title="Edit Role"
+                    description="Perbarui role dan hak akses yang dimiliki"
                 />
 
-                {/* Form */}
+                {/* Card */}
                 <form onSubmit={handleSubmit}>
                     <div className="space-y-5">
                         {/* Role Name */}
@@ -146,9 +146,9 @@ export default function RolesCreate() {
                     <div className="flex justify-start space-x-2 pt-6">
                         <Button type="submit" disabled={processing}>
                             <Save />
-                            {processing ? "Menyimpan..." : "Simpan"}
+                            {processing ? "Menyimpan..." : "Simpan Perubahan"}
                         </Button>
-                        <Link href="/roles">
+                        <Link href="/admin/roles">
                             <Button variant="outline">Batal</Button>
                         </Link>
                     </div>

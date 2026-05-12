@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Routing\Controllers\Middleware;
@@ -41,13 +39,13 @@ class UserController extends Controller implements HasMiddleware
 
         $users->appends(['q' => request()->q]);
 
-        return Inertia::render('Users/Index', compact('users'));
+        return Inertia::render('Admin/Users/Index', compact('users'));
     }
 
     public function create()
     {
         $roles = Role::select('id', 'name')->orderBy('name')->get();
-        return Inertia::render('Users/Create', compact('roles'));
+        return Inertia::render('Admin/Users/Create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -71,7 +69,7 @@ class UserController extends Controller implements HasMiddleware
         // assign role
         $user->syncRoles($request->roles);
 
-        return redirect()->to('/users')->with('success', 'User created successfully.');
+        return redirect()->to('/admin/users')->with('success', 'User created successfully.');
     }
 
     public function edit(User $user)
@@ -80,7 +78,7 @@ class UserController extends Controller implements HasMiddleware
         $roles = Role::select('id', 'name')->orderBy('name')->get();
         $userRoles = $user->roles->pluck('id');
 
-        return Inertia::render('Users/Edit', compact('user', 'roles', 'userRoles'));
+        return Inertia::render('Admin/Users/Edit', compact('user', 'roles', 'userRoles'));
     }
 
     public function update(Request $request, User $user)
@@ -110,13 +108,13 @@ class UserController extends Controller implements HasMiddleware
         // sync role
         $user->syncRoles($request->roles);
 
-        return redirect()->to('/users')->with('success', 'User updated successfully.');
+        return redirect()->to('/admin/users')->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
 
-        return redirect()->to('/users')->with('success', 'User deleted successfully.');
+        return redirect()->to('/admin/users')->with('success', 'User deleted successfully.');
     }
 }

@@ -31,7 +31,29 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->to('/dashboard');
+
+            $user = Auth::user();
+
+            $redirects = [
+                'admin' => '/admin/dashboard',
+                'tukang' => '/tukang/dashboard',
+                'pelanggan' => '/dashboard',
+            ];
+
+            foreach ($redirects as $role => $url) {
+                if ($user->hasRole($role)) {
+                    return redirect($url);
+                }
+            }
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()->withErrors([
+                'login' => 'Anda tidak memiliki akses untuk login',
+            ]);
         }
 
         return back()->withErrors([

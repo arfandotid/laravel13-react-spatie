@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
@@ -10,6 +10,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return Inertia::render('Dashboard/Index');
+        return Inertia::render('Admin/Dashboard/Index');
     }
 }

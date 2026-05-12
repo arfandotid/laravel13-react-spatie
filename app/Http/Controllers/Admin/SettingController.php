@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
-use Inertia\Response;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\FileUploadTrait;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -30,7 +28,7 @@ class SettingController extends Controller implements HasMiddleware
         $setting = Setting::first();
 
         // return inertia
-        return Inertia::render('Settings/Index', compact('setting'));
+        return Inertia::render('Admin/Settings/Index', compact('setting'));
     }
 
     public function update(Request $request)
@@ -68,7 +66,7 @@ class SettingController extends Controller implements HasMiddleware
         $setting->update($data);
 
         // kembali ke halaman setting
-        return redirect()->to('/settings')->with('success', 'Setting updated successfully.');
+        return redirect()->to('/admin/settings')->with('success', 'Setting updated successfully.');
     }
 
     public function deleteLogo()
@@ -88,6 +86,6 @@ class SettingController extends Controller implements HasMiddleware
         ]);
 
         // kembali ke halaman setting
-        return redirect()->to('/settings')->with('success', 'Logo aplikasi berhasil dihapus.');
+        return redirect()->to('/admin/settings')->with('success', 'Logo aplikasi berhasil dihapus.');
     }
 }

@@ -36,7 +36,7 @@ export default function SettingsIndex() {
         e.preventDefault();
 
         // kirim data ke route "settings"
-        post("/settings", {
+        post("/admin/settings", {
             preserveScroll: true,
         });
     };
@@ -55,7 +55,7 @@ export default function SettingsIndex() {
         }).then((result) => {
             if (result.isConfirmed) {
                 // delete
-                router.delete(`/settings/delete-logo`);
+                router.delete(`/admin/settings/delete-logo`);
             }
         });
     };

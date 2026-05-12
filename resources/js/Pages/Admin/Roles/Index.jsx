@@ -51,13 +51,13 @@ export default function RolesIndex() {
                     showButton
                     title="Roles"
                     description="Kelola role dan hak akses pengguna"
-                    action="/roles/create"
+                    action="/admin/roles/create"
                     actionText="Tambah Role"
                     permission="roles.create"
                 />
 
                 <div className="space-y-5">
-                    <Search URL={"/roles"} />
+                    <Search URL={"/admin/roles"} />
 
                     {/* Table */}
                     <Table>
@@ -88,7 +88,7 @@ export default function RolesIndex() {
                                                     "roles.edit",
                                                 ]) && (
                                                     <Link
-                                                        href={`/roles/${role.id}/edit`}
+                                                        href={`/admin/roles/${role.id}/edit`}
                                                         title="Edit"
                                                     >
                                                         <Button
@@ -103,7 +103,7 @@ export default function RolesIndex() {
                                                     "roles.delete",
                                                 ]) && (
                                                     <Delete
-                                                        URL={"/roles"}
+                                                        URL={"/admin/roles"}
                                                         id={role.id}
                                                     />
                                                 )}

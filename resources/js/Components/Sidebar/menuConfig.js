@@ -16,7 +16,7 @@ export const menuItems = [
     {
         name: "Dashboard",
         icon: LayoutDashboard,
-        href: "/dashboard",
+        href: "/admin/dashboard",
     },
     {
         name: "User Management",
@@ -25,19 +25,19 @@ export const menuItems = [
         dropdown: [
             {
                 name: "Roles",
-                href: "/roles",
+                href: "/admin/roles",
                 icon: Shield,
                 permissions: ["roles.index"],
             },
             {
                 name: "Permissions",
-                href: "/permissions",
+                href: "/admin/permissions",
                 icon: Key,
                 permissions: ["permissions.index"],
             },
             {
                 name: "Users",
-                href: "/users",
+                href: "/admin/users",
                 icon: Users,
                 permissions: ["users.index"],
             },
@@ -46,7 +46,7 @@ export const menuItems = [
     {
         name: "Settings",
         icon: Settings,
-        href: "/settings",
+        href: "/admin/settings",
         permissions: ["settings.index"],
     },
 ];

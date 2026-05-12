@@ -1,15 +1,18 @@
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import LayoutApp from "@/Layouts/LayoutApp";
 import { Save } from "lucide-react";
 import PageHeader from "@/Shared/PageHeader";
+import { Button } from "@/Components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/Components/ui/field";
 import { Input } from "@/Components/ui/input";
-import { Button } from "@/Components/ui/button";
 
-export default function PermissionsCreate() {
+export default function PermissionsEdit() {
+    // destruct permission dari props
+    const { permission } = usePage().props;
+
     // useForm untuk mengelola form data
-    const { data, setData, post, processing, errors } = useForm({
-        name: "",
+    const { data, setData, put, processing, errors } = useForm({
+        name: permission.name || "",
     });
 
     // fungsi handleSubmit
@@ -17,17 +20,19 @@ export default function PermissionsCreate() {
         e.preventDefault();
 
         // kirim data ke server
-        post("/permissions");
+        put(`/admin/permissions/${permission.id}`);
     };
 
     return (
         <>
-            <Head title={`Tambah Permission`} />
+            <Head
+                title={`Edit Permission - ${import.meta.env.VITE_APP_NAME}`}
+            />
             <LayoutApp>
                 {/* Header */}
                 <PageHeader
-                    title="Tambah Permission"
-                    description="Buat permission baru untuk hak akses pengguna"
+                    title="Edit Permission"
+                    description="Perbarui data permission untuk hak akses pengguna"
                 />
 
                 {/* Card */}
@@ -43,7 +48,7 @@ export default function PermissionsCreate() {
                                     setData("name", e.target.value)
                                 }
                                 className={`${errors.name ? "border-red-500" : ""}`}
-                                placeholder="Contoh: permissions.create"
+                                placeholder="Contoh: permissions.edit"
                             />
                             {errors.name && (
                                 <FieldDescription className="mt-1 text-sm text-red-600">
@@ -57,9 +62,9 @@ export default function PermissionsCreate() {
                     <div className="flex justify-start space-x-2 pt-6">
                         <Button type="submit" disabled={processing}>
                             <Save />
-                            {processing ? "Menyimpan..." : "Simpan"}
+                            {processing ? "Menyimpan..." : "Simpan Perubahan"}
                         </Button>
-                        <Link href="/permissions">
+                        <Link href="/admin/permissions">
                             <Button variant="outline">Batal</Button>
                         </Link>
                     </div>
