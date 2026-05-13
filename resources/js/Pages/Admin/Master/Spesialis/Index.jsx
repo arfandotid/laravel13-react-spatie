@@ -53,7 +53,7 @@ export default function SpesialisIndex() {
                                                 (spesialis.current_page - 1) *
                                                     spesialis.per_page}
                                         </TableCell>
-                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell>{item.nama}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
                                                 {hasAnyPermission([

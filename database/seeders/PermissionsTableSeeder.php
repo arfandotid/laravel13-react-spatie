@@ -36,5 +36,39 @@ class PermissionsTableSeeder extends Seeder
         //permission settings
         Permission::create(['name' => 'settings.index', 'guard_name' => 'web']);
         Permission::create(['name' => 'settings.update', 'guard_name' => 'web']);
+
+        //permission spesialis
+        Permission::create(['name' => 'spesialis.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'spesialis.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'spesialis.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'spesialis.delete', 'guard_name' => 'web']);
+
+        //permission pelanggan
+        Permission::create(['name' => 'pelanggan.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'pelanggan.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'pelanggan.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'pelanggan.delete', 'guard_name' => 'web']);
+
+        //permission tukang
+        Permission::create(['name' => 'tukang.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'tukang.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'tukang.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'tukang.delete', 'guard_name' => 'web']);
+
+        //permission order
+        Permission::create(['name' => 'provinsi.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'provinsi.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'provinsi.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'provinsi.delete', 'guard_name' => 'web']);
+
+        Permission::create(['name' => 'kabupaten.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kabupaten.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kabupaten.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kabupaten.delete', 'guard_name' => 'web']);
+
+        Permission::create(['name' => 'kecamatan.index', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kecamatan.create', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kecamatan.edit', 'guard_name' => 'web']);
+        Permission::create(['name' => 'kecamatan.delete', 'guard_name' => 'web']);
     }
 }

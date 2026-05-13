@@ -40,6 +40,7 @@ export default function TukangIndex() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>No.</TableHead>
+                                <TableHead>Email</TableHead>
                                 <TableHead>Nama</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
@@ -53,6 +54,7 @@ export default function TukangIndex() {
                                                 (tukang.current_page - 1) *
                                                     tukang.per_page}
                                         </TableCell>
+                                        <TableCell>{item.email}</TableCell>
                                         <TableCell>{item.name}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
@@ -87,7 +89,7 @@ export default function TukangIndex() {
                                 <TableEmpty
                                     title="Tidak ada Permission"
                                     description="Silahkan tambahkan permission baru"
-                                    colSpan={3}
+                                    colSpan={4}
                                 />
                             )}
                         </TableBody>
