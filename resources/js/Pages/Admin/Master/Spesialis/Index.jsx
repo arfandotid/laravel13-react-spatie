@@ -16,6 +16,7 @@ import {
     TableBody,
     TableCell,
 } from "@/Components/BasicTable";
+import DialogForm from "./_components/DialogForm";
 
 export default function SpesialisIndex() {
     const { spesialis } = usePage().props;
@@ -24,14 +25,13 @@ export default function SpesialisIndex() {
         <>
             <Head title={`Spesialis`} />
             <LayoutApp>
-                <PageHeader
-                    showButton
-                    title="Spesialis"
-                    description="Kelola spesialis yang terdaftar"
-                    action="/admin/spesialis/create"
-                    actionText="Tambah Spesialis"
-                    permission="spesialis.create"
-                />
+                <div className="flex justify-between items-center">
+                    <PageHeader
+                        title="Spesialis"
+                        description="Kelola spesialis yang terdaftar"
+                    />
+                    <DialogForm />
+                </div>
 
                 <div className="space-y-5">
                     <Search URL={"/admin/spesialis"} />
@@ -59,17 +59,7 @@ export default function SpesialisIndex() {
                                                 {hasAnyPermission([
                                                     "spesialis.edit",
                                                 ]) && (
-                                                    <Link
-                                                        href={`/admin/spesialis/${item.id}/edit`}
-                                                        title="Edit"
-                                                    >
-                                                        <Button
-                                                            size="icon"
-                                                            variant="outline"
-                                                        >
-                                                            <Edit />
-                                                        </Button>
-                                                    </Link>
+                                                    <DialogForm item={item} />
                                                 )}
                                                 {hasAnyPermission([
                                                     "spesialis.delete",

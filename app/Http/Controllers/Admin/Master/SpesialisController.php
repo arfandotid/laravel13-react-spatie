@@ -40,7 +40,15 @@ class SpesialisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required'
+        ]);
+
+        Spesialis::create([
+            'nama' => $request->nama
+        ]);
+
+        return redirect()->to('/admin/spesialis')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -64,7 +72,15 @@ class SpesialisController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required'
+        ]);
+
+        Spesialis::findOrFail($id)->update([
+            'nama' => $request->nama
+        ]);
+
+        return redirect()->to('/admin/spesialis')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -72,6 +88,9 @@ class SpesialisController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $spesialis = Spesialis::findOrFail($id);
+        $spesialis->delete();
+
+        return redirect()->to('/admin/spesialis')->with('success', 'Data berhasil dihapus');
     }
 }
