@@ -30,4 +30,13 @@ Route::middleware(['auth', 'role:admin'])
     
     // route resource untuk pelanggan
     Route::resource('/pelanggan', App\Http\Controllers\Admin\Master\PelangganController::class);
+
+    // route resource untuk provinsi
+    Route::resource('/provinsi', App\Http\Controllers\Admin\Wilayah\ProvinsiController::class);
+
+    // route resource untuk kabupaten
+    Route::resource('/kabupaten', App\Http\Controllers\Admin\Wilayah\KabupatenController::class);
+
+    // route resource untuk kecamatan
+    Route::resource('/kecamatan', App\Http\Controllers\Admin\Wilayah\KecamatanController::class);
 });
