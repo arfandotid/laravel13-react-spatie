@@ -9,6 +9,9 @@ import {
     Key,
     Shield,
     LayoutDashboard,
+    Table2,
+    BriefcaseBusiness,
+    Wallet,
 } from "lucide-react";
 
 // Menu items dengan permission check
@@ -20,6 +23,39 @@ export const menuItems = [
         href: "/admin/dashboard",
     },
     {
+        name: "Data Master",
+        icon: Table2,
+        dropdown: [
+            {
+                name: "Spesialis",
+                href: "/admin/spesialis",
+                permissions: [],
+            },
+            {
+                name: "Tukang",
+                href: "/admin/tukang",
+                permissions: [],
+            },
+            {
+                name: "Pelanggan",
+                href: "/admin/pelanggan",
+                permissions: [],
+            },
+        ],
+    },
+    {
+        name: "Pesanan",
+        icon: BriefcaseBusiness,
+        permissions: [],
+        href: "/admin/pesanan",
+    },
+    {
+        name: "Pembayaran",
+        icon: Wallet,
+        permissions: [],
+        href: "/admin/pembayaran",
+    },
+    {
         name: "User Management",
         icon: UserCog,
         permissions: ["roles.index", "permissions.index", "users.index"],
@@ -27,19 +63,16 @@ export const menuItems = [
             {
                 name: "Roles",
                 href: "/admin/roles",
-                icon: Shield,
                 permissions: ["roles.index"],
             },
             {
                 name: "Permissions",
                 href: "/admin/permissions",
-                icon: Key,
                 permissions: ["permissions.index"],
             },
             {
                 name: "Users",
                 href: "/admin/users",
-                icon: Users,
                 permissions: ["users.index"],
             },
         ],
@@ -47,8 +80,28 @@ export const menuItems = [
     {
         name: "Settings",
         icon: Settings,
-        href: "/admin/settings",
-        permissions: ["settings.index"],
+        dropdown: [
+            {
+                name: "Aplikasi",
+                href: "/admin/settings",
+                permissions: ["settings.index"],
+            },
+            {
+                name: "Provinsi",
+                href: "/admin/provinsi",
+                permissions: [],
+            },
+            {
+                name: "Kabupaten",
+                href: "/admin/kabupaten",
+                permissions: [],
+            },
+            {
+                name: "Kecamatan",
+                href: "/admin/kecamatan",
+                permissions: [],
+            },
+        ],
     },
 ];
 

@@ -21,4 +21,10 @@ Route::middleware(['auth', 'role:admin'])
 
     // route resource untuk user
     Route::resource('/users', App\Http\Controllers\Admin\UserController::class);
+
+    // route resource untuk tukang
+    Route::resource('/tukang', App\Http\Controllers\Admin\Master\TukangController::class);
+    
+    // route resource untuk pelanggan
+    Route::resource('/pelanggan', App\Http\Controllers\Admin\Master\PelangganController::class);
 });
