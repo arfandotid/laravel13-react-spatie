@@ -3,10 +3,35 @@ import { ThemeToggle } from "@/Components/ThemeToggle";
 import { APP_URL } from "@/constants/app";
 import { usePage } from "@inertiajs/react";
 import { GalleryVerticalEnd } from "lucide-react";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function LayoutAuth({ children }) {
     // destructure "settings" dari props page
-    const { settings } = usePage().props;
+    const { settings, flash } = usePage().props;
+
+    // useEffect untuk menampilkan Sweet Alert jika ada flash message
+    useEffect(() => {
+        if (flash?.success) {
+            Swal.fire({
+                icon: "success",
+                title: "SUCCESS!",
+                text: flash.success,
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        } else if (flash?.error) {
+            Swal.fire({
+                icon: "error",
+                title: "ERROR!",
+                text: flash.error,
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        }
+    }, [flash]);
 
     return (
         <>
