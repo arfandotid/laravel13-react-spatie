@@ -57,4 +57,15 @@ class User extends Authenticatable
     {
         return $this->getAllPermissions()->mapWithKeys(fn($pr) => [$pr['name'] => true]);
     }
+
+    public function tukang()
+    {
+        return $this->hasOne(Tukang::class, 'user_id', 'id');
+    }
+
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class, 'user_id', 'id');
+    }
+    
 }

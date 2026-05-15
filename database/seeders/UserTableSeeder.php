@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pelanggan;
+use App\Models\Tukang;
 use App\Models\User;
-use DB;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -47,6 +48,11 @@ class UserTableSeeder extends Seeder
         // assign role saja, tanpa permission
         $tukang->assignRole($tukangRole);
 
+        // create tukang
+        Tukang::create([
+            'nama' => $tukang->name,
+            'user_id' => $tukang->id,
+        ]);
 
         // PELANGGAN
         $pelanggan = User::create([
@@ -60,5 +66,11 @@ class UserTableSeeder extends Seeder
 
         // assign role saja, tanpa permission
         $pelanggan->assignRole($pelangganRole);
+
+        // create pelanggan
+        Pelanggan::create([
+            'nama' => $pelanggan->name,
+            'user_id' => $pelanggan->id,
+        ]);
     }
 }

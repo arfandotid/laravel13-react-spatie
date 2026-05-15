@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tukang', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('kode_provinsi');
-            $table->string('kode_kabupaten');
-            $table->string('kode_kecamatan');
+            $table->string('kode_provinsi')->nullable();
+            $table->string('kode_kabupaten')->nullable();
+            $table->string('kode_kecamatan')->nullable();
             $table->string('dokumen_pendukung')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->string('nama_bank')->nullable();

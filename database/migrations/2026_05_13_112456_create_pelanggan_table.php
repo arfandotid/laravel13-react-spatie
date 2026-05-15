@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('alamat');
-            $table->string('kode_provinsi');
-            $table->string('kode_kabupaten');
-            $table->string('kode_kecamatan');
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 11, 7);
+            $table->string('alamat')->nullable();
+            $table->string('kode_provinsi')->nullable();
+            $table->string('kode_kabupaten')->nullable();
+            $table->string('kode_kecamatan')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 11, 7)->nullable();
             $table->string('nama_bank')->nullable();
             $table->string('no_rekening')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

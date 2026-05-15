@@ -17,7 +17,7 @@ import {
     FieldTitle,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { Loader2, UserPlus } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
 
@@ -249,6 +249,15 @@ export default function Register({ className, ...props }) {
                                                 </span>
                                             )}
                                         </Button>
+                                        <span className="text-center text-sm flex items-center justify-center">
+                                            Sudah punya akun?
+                                            <Link
+                                                href="/login"
+                                                className="ml-1 font-medium underline-offset-4 hover:underline"
+                                            >
+                                                Login
+                                            </Link>
+                                        </span>
                                         <FieldDescription className="text-center">
                                             {new Date().getFullYear()} &copy;
                                             Build with &hearts; by{" "}

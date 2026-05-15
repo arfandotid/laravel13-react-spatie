@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Pelanggan;
+use App\Models\Tukang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,9 +40,21 @@ class RegisterController extends Controller
         if($request->tipe == 'tukang') {
             $tukangRole = Role::find(2);
             $user->assignRole($tukangRole);
+
+            // create tukang
+            Tukang::create([
+                'nama' => $request->name,
+                'user_id' => $user->id,
+            ]);
         }else {
             $pelangganRole = Role::find(3);
             $user->assignRole($pelangganRole);
+
+            // create pelanggan
+            Pelanggan::create([
+                'nama' => $request->name,
+                'user_id' => $user->id,
+            ]);
         }
 
         return redirect()->to('/login')->with('success', 'Registrasi berhasil, silahkan login!');

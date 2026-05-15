@@ -15,7 +15,7 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { Loader2, LogIn } from "lucide-react";
 
 export default function Login({ className, ...props }) {
@@ -129,6 +129,15 @@ export default function Login({ className, ...props }) {
                                                 </span>
                                             )}
                                         </Button>
+                                        <span className="text-center text-sm flex items-center justify-center">
+                                            Belum punya akun?
+                                            <Link
+                                                href="/register"
+                                                className="ml-1 font-medium underline-offset-4 hover:underline"
+                                            >
+                                                Daftar
+                                            </Link>
+                                        </span>
                                         <FieldDescription className="text-center">
                                             {new Date().getFullYear()} &copy;
                                             Build with &hearts; by{" "}
