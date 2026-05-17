@@ -25,7 +25,7 @@ export default function FaqSection() {
     ];
 
     return (
-        <section className="container mx-auto space-y-16 py-24 md:py-32">
+        <section className="container mx-auto space-y-16 py-24 md:py-32 px-5">
             {/* Header FAQ */}
             <div className="flex flex-col items-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

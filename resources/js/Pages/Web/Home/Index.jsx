@@ -5,6 +5,7 @@ import FeaturesSection from "./_components/FeaturesSection";
 import TukangCard from "./_components/TukangCard";
 import HowItWorks from "./_components/HowItWorks";
 import FaqSection from "./_components/FaqSection";
+import JoinMitraCTA from "./_components/JoinMitraCta";
 
 export default function Home() {
     const { settings } = usePage().props;
@@ -18,6 +19,7 @@ export default function Home() {
                 <TukangCard />
                 <HowItWorks />
                 <FaqSection />
+                <JoinMitraCTA />
             </LayoutWeb>
         </>
     );
