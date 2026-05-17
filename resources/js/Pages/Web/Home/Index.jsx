@@ -4,6 +4,7 @@ import Hero from "./_components/Hero";
 import FeaturesSection from "./_components/FeaturesSection";
 import TukangCard from "./_components/TukangCard";
 import HowItWorks from "./_components/HowItWorks";
+import FaqSection from "./_components/FaqSection";
 
 export default function Home() {
     const { settings } = usePage().props;
@@ -16,6 +17,7 @@ export default function Home() {
                 <FeaturesSection />
                 <TukangCard />
                 <HowItWorks />
+                <FaqSection />
             </LayoutWeb>
         </>
     );
