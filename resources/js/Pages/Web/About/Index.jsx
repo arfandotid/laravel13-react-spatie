@@ -12,7 +12,7 @@ import {
     Zap,
 } from "lucide-react";
 
-export default function Home() {
+export default function About() {
     const { settings } = usePage().props;
     const misis = [
         "Mempermudah pencarian tukang berdasarkan lokasi dan spesialisasi.",
