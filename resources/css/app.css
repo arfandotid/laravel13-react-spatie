@@ -16,6 +16,46 @@
         "Noto Color Emoji";
 }
 
+/* Leaflet theme */
+.leaflet-container {
+    background: hsl(var(--background));
+    transition: background-color 0.3s ease;
+}
+
+.dark .leaflet-container {
+    background: hsl(var(--background));
+}
+
+.leaflet-bar {
+    border: 1px solid hsl(var(--border));
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+.leaflet-bar a {
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    transition: all 0.2s ease;
+}
+
+.leaflet-bar a:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.dark .leaflet-bar a {
+    background-color: rgb(38 38 38);
+    color: rgb(240 240 240);
+    border-color: rgb(64 64 64);
+}
+
+.dark .leaflet-bar a:hover {
+    background-color: rgb(55 55 55);
+    color: white;
+}
+
 /* Override SweetAlert2 default styles */
 .swal2-popup {
     border-radius: 1rem !important;

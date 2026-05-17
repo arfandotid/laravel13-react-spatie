@@ -1,5 +1,5 @@
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import { useState } from "react";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { useEffect, useState } from "react";
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -14,17 +14,14 @@ L.Icon.Default.mergeOptions({
 function LocationMarker({ position, setPosition }) {
     useMapEvents({
         click(e) {
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng;
-
             setPosition({
-                lat,
-                lng,
+                lat: e.latlng.lat,
+                lng: e.latlng.lng,
             });
         },
     });
 
-    return position ? <Marker position={[position.lat, position.lng]} /> : null;
+    return <Marker position={[position.lat, position.lng]} />;
 }
 
 export default function MapPicker({
@@ -33,17 +30,31 @@ export default function MapPicker({
     setLatitude,
     setLongitude,
 }) {
-    const [position, setPosition] = useState(
-        latitude && longitude
-            ? {
-                  lat: latitude,
-                  lng: longitude,
-              }
-            : {
-                  lat: -6.9175,
-                  lng: 107.6191,
-              },
-    );
+    const [darkMode, setDarkMode] = useState(false);
+
+    const [position, setPosition] = useState({
+        lat: latitude || -6.9175,
+        lng: longitude || 107.6191,
+    });
+
+    useEffect(() => {
+        const html = document.documentElement;
+
+        const checkDark = () => {
+            setDarkMode(html.classList.contains("dark"));
+        };
+
+        checkDark();
+
+        const observer = new MutationObserver(checkDark);
+
+        observer.observe(html, {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     const handleSetPosition = (pos) => {
         setPosition(pos);
@@ -53,15 +64,22 @@ export default function MapPicker({
     };
 
     return (
-        <div className="rounded-2xl overflow-hidden border">
+        <div className="overflow-hidden rounded-2xl border">
             <MapContainer
                 center={[position.lat, position.lng]}
                 zoom={13}
-                style={{ height: "400px", width: "100%" }}
+                style={{
+                    height: "400px",
+                    width: "100%",
+                }}
             >
                 <TileLayer
                     attribution="&copy; OpenStreetMap contributors"
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url={
+                        darkMode
+                            ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                            : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    }
                 />
 
                 <LocationMarker
