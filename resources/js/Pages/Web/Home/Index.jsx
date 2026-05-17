@@ -1,6 +1,6 @@
 import { Head, usePage } from "@inertiajs/react";
 import LayoutWeb from "@/Layouts/LayoutWeb";
-import { Button } from "@/Components/ui/button";
+import Hero from "./_components/Hero";
 
 export default function Home() {
     const { settings } = usePage().props;
@@ -9,8 +9,7 @@ export default function Home() {
         <>
             <Head title={settings?.app_name || "TukangNow"} />
             <LayoutWeb>
-                <h1>Home</h1>
-                <Button>TES</Button>
+                <Hero />
             </LayoutWeb>
         </>
     );
