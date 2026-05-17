@@ -7,6 +7,7 @@ import { Button } from "@/Components/ui/button";
 import { Save } from "lucide-react";
 import WilayahSelect from "@/Components/WilayahSelect";
 import { Textarea } from "@/Components/ui/textarea";
+import MapPicker from "@/Components/MapPicker";
 
 export default function InformasiAkunIndex() {
     const { pelanggan, provinsi, kabupaten, kecamatan } = usePage().props;
@@ -19,6 +20,8 @@ export default function InformasiAkunIndex() {
         alamat: pelanggan?.alamat || "",
         nama_bank: pelanggan?.nama_bank || "",
         no_rekening: pelanggan?.no_rekening || "",
+        latitude: pelanggan?.latitude || "",
+        longitude: pelanggan?.longitude || "",
     });
 
     const handleSubmit = (e) => {
@@ -80,6 +83,46 @@ export default function InformasiAkunIndex() {
                             </FieldDescription>
                         )}
                     </Field>
+                    <div className="grid grid-cols-2 gap-2">
+                        <Field>
+                            <FieldLabel>Latitude</FieldLabel>
+                            <Input
+                                type="text"
+                                value={data.latitude}
+                                onChange={(e) =>
+                                    setData("latitude", e.target.value)
+                                }
+                                className={`${errors.latitude ? "border-red-500" : ""}`}
+                            />
+                            {errors.latitude && (
+                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                    {errors.latitude}
+                                </FieldDescription>
+                            )}
+                        </Field>
+                        <Field>
+                            <FieldLabel>Longitude</FieldLabel>
+                            <Input
+                                type="text"
+                                value={data.longitude}
+                                onChange={(e) =>
+                                    setData("longitude", e.target.value)
+                                }
+                                className={`${errors.longitude ? "border-red-500" : ""}`}
+                            />
+                            {errors.longitude && (
+                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                    {errors.longitude}
+                                </FieldDescription>
+                            )}
+                        </Field>
+                    </div>
+                    <MapPicker
+                        latitude={data.latitude}
+                        longitude={data.longitude}
+                        setLatitude={(val) => setData("latitude", val)}
+                        setLongitude={(val) => setData("longitude", val)}
+                    />
                     <Field>
                         <FieldLabel>Nama Bank</FieldLabel>
                         <Input

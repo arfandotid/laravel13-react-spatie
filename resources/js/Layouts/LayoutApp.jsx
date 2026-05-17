@@ -11,6 +11,7 @@ import {
 import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import "leaflet/dist/leaflet.css";
 
 export default function LayoutApp({ children }) {
     // destruct auth dan flash dari props

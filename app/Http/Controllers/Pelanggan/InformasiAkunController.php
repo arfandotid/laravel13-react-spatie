@@ -37,7 +37,9 @@ class InformasiAkunController extends Controller
             'kode_kecamatan' => 'required',
             'alamat' => 'required',
             'nama_bank' => 'required',
-            'no_rekening' => 'required',
+            'no_rekening' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
     
         $user_id = Auth::user()->id;
@@ -51,6 +53,8 @@ class InformasiAkunController extends Controller
             'alamat' => $request->alamat,
             'nama_bank' => $request->nama_bank,
             'no_rekening' => $request->no_rekening,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ];
 
         $user->pelanggan->update($data);

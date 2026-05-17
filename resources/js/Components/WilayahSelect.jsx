@@ -77,9 +77,9 @@ export default function WilayahSelect({
     };
 
     return (
-        <div className="space-y-4">
+        <div className="grid grid-cols-12 gap-4">
             {/* PROVINSI */}
-            <div className="space-y-2">
+            <div className="col-span-12 lg:col-span-4">
                 <label className="text-sm font-medium">Provinsi</label>
 
                 <AppCombobox
@@ -101,7 +101,7 @@ export default function WilayahSelect({
             </div>
 
             {/* KABUPATEN */}
-            <div className="space-y-2">
+            <div className="col-span-12 lg:col-span-4">
                 <label className="text-sm font-medium">Kabupaten / Kota</label>
 
                 <AppCombobox
@@ -123,7 +123,7 @@ export default function WilayahSelect({
             </div>
 
             {/* KECAMATAN */}
-            <div className="space-y-2">
+            <div className="col-span-12 lg:col-span-4">
                 <label className="text-sm font-medium">Kecamatan</label>
 
                 <AppCombobox
