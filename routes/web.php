@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('home');
 });
 
 // route login
@@ -24,6 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/password', [App\Http\Controllers\ProfileController::class, 'changePassword'])->name('profile.password.index');
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password.update');
 });
+
+// route guest
+require __DIR__.'/guest.php';
 
 // route admin
 require __DIR__.'/admin.php';

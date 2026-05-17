@@ -41,7 +41,7 @@ export default function LayoutApp({ children }) {
     }, [flash]);
 
     return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="theme">
             <SidebarProvider>
                 <AppSidebar auth={auth} />
                 <SidebarInset className="min-w-0">

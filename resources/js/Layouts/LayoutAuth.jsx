@@ -35,7 +35,7 @@ export default function LayoutAuth({ children }) {
 
     return (
         <>
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <ThemeProvider defaultTheme="dark" storageKey="theme">
                 <div className="relative bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
                     {/* THEME TOGGLE */}
                     <div className="absolute right-6 top-6">
