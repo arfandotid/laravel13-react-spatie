@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pelanggan;
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PelangganController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -92,6 +93,15 @@ class PelangganController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if($user->photo) {
+            $path = "/uploads/avatars/".$user->photo;
+            $this->deleteFile($path);
+        }
+
+        $user->delete();
+
+        return redirect()->to('/admin/pelanggan')->with('success', 'Data pelanggan berhasil dihapus.');
     }
 }

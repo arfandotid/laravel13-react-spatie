@@ -62,33 +62,33 @@ export default function TukangIndex() {
                                                     tukang.per_page}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.nama}
+                                            {item?.tukang?.nama}
                                         </TableCell>
                                         <TableCell>{item.email}</TableCell>
                                         <TableCell>
-                                            {item.tukang.no_hp}
+                                            {item?.tukang?.no_hp}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.spesialis.length}{" "}
+                                            {item?.tukang?.spesialis.length}{" "}
                                             Keahlian
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang?.provinsi?.nama}
+                                            {item?.tukang?.provinsi?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang?.kabupaten?.nama}
+                                            {item?.tukang?.kabupaten?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang?.kecamatan?.nama}
+                                            {item?.tukang?.kecamatan?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.nama_bank}
+                                            {item?.tukang?.nama_bank}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.no_rekening}
+                                            {item?.tukang?.no_rekening}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.dokumen_pendukung ? (
+                                            {item?.tukang?.dokumen_pendukung ? (
                                                 <a
                                                     target="_blank"
                                                     href={`${APP_URL}/uploads/dokumen-tukang/${item.tukang.dokumen_pendukung}`}
@@ -111,7 +111,8 @@ export default function TukangIndex() {
                                             )}
                                         </TableCell>
                                         <TableCell>
-                                            {item.tukang.is_verified == "1" ? (
+                                            {item?.tukang?.is_verified ==
+                                            "1" ? (
                                                 <Badge
                                                     variant="default"
                                                     className="bg-green-500"

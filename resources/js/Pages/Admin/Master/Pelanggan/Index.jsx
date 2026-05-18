@@ -58,29 +58,29 @@ export default function PelangganIndex() {
                                                     pelanggan.per_page}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan.nama}
+                                            {item?.pelanggan?.nama}
                                         </TableCell>
                                         <TableCell>{item.email}</TableCell>
                                         <TableCell>
-                                            {item.pelanggan.no_hp}
+                                            {item?.pelanggan?.no_hp}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan.alamat}
+                                            {item?.pelanggan?.alamat}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan?.provinsi?.nama}
+                                            {item?.pelanggan?.provinsi?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan?.kabupaten?.nama}
+                                            {item?.pelanggan?.kabupaten?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan?.kecamatan?.nama}
+                                            {item?.pelanggan?.kecamatan?.nama}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan.nama_bank}
+                                            {item?.pelanggan?.nama_bank}
                                         </TableCell>
                                         <TableCell>
-                                            {item.pelanggan.no_rekening}
+                                            {item?.pelanggan?.no_rekening}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
