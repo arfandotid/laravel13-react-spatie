@@ -1,5 +1,6 @@
 import { ArrowRight, Sparkles, UserPlus, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "@inertiajs/react";
 
 export default function JoinMitraCTA() {
     return (
@@ -70,23 +71,27 @@ export default function JoinMitraCTA() {
 
                     {/* Tombol Aksi Utama: Warna Putih/Terang agar sangat kontras dengan bg-primary */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
-                        <Button
-                            size="lg"
-                            variant="secondary" // BiasanyaSecondary adalah Putih/Abu muda di tema default shadcn
-                            className="w-full sm:w-auto font-bold shadow-xl text-lg px-14 py-7 group h-auto rounded-xl hover:scale-105 transition-transform"
-                        >
-                            <UserPlus className="mr-2.5 h-5 w-5" />
-                            Daftar Sekarang (Gratis!)
-                            <ArrowRight className="ml-2.5 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
-                        </Button>
+                        <Link href="/register">
+                            <Button
+                                size="lg"
+                                variant="secondary" // BiasanyaSecondary adalah Putih/Abu muda di tema default shadcn
+                                className="w-full sm:w-md font-bold shadow-xl text-lg px-14 py-7 group h-auto rounded-xl hover:scale-105 transition-transform"
+                            >
+                                <UserPlus className="mr-2.5 h-5 w-5" />
+                                Daftar Sekarang (Gratis!)
+                                <ArrowRight className="ml-2.5 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
+                            </Button>
+                        </Link>
 
-                        <Button
-                            size="lg"
-                            variant="ghost" // Ghost agar tidak mengganggu tombol utama, tapi tetap terlihat
-                            className="w-full sm:w-auto text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground px-14 py-7 h-auto text-lg rounded-xl"
-                        >
-                            Pelajari Selengkapnya
-                        </Button>
+                        <Link href="/about">
+                            <Button
+                                size="lg"
+                                variant="ghost" // Ghost agar tidak mengganggu tombol utama, tapi tetap terlihat
+                                className="w-full sm:w-auto text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground px-14 py-7 h-auto text-lg rounded-xl"
+                            >
+                                Pelajari Selengkapnya
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

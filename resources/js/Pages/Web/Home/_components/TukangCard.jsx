@@ -8,6 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@inertiajs/react";
 
 const TukangCard = ({ icon, title, price }) => {
     return (
@@ -41,11 +42,16 @@ const TukangCard = ({ icon, title, price }) => {
                 </div>
             </CardContent>
 
-            <CardFooter>
-                <Button className="w-full justify-between" variant="outline">
-                    Pesan Tukang
-                    <ArrowRight className="h-4 w-4 transition-transform" />
-                </Button>
+            <CardFooter className="block">
+                <Link href="/cari-tukang">
+                    <Button
+                        className="justify-between w-full"
+                        variant="outline"
+                    >
+                        Pesan Tukang
+                        <ArrowRight className="h-4 w-4 transition-transform" />
+                    </Button>
+                </Link>
             </CardFooter>
         </Card>
     );
