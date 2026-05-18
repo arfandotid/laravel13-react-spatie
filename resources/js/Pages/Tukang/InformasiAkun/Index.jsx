@@ -13,6 +13,7 @@ export default function InformasiAkunIndex() {
 
     const { data, setData, put, processing, errors } = useForm({
         nama: tukang?.nama || "",
+        no_hp: tukang?.no_hp || "",
         kode_provinsi: tukang?.kode_provinsi || "",
         kode_kabupaten: tukang?.kode_kabupaten || "",
         kode_kecamatan: tukang?.kode_kecamatan || "",
@@ -39,20 +40,40 @@ export default function InformasiAkunIndex() {
                 />
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                    <Field>
-                        <FieldLabel>Nama</FieldLabel>
-                        <Input
-                            type="text"
-                            value={data.nama}
-                            onChange={(e) => setData("nama", e.target.value)}
-                            className={`${errors.nama ? "border-red-500" : ""}`}
-                        />
-                        {errors.nama && (
-                            <FieldDescription className="mt-1 text-sm text-red-600">
-                                {errors.nama}
-                            </FieldDescription>
-                        )}
-                    </Field>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Field>
+                            <FieldLabel>Nama</FieldLabel>
+                            <Input
+                                type="text"
+                                value={data.nama}
+                                onChange={(e) =>
+                                    setData("nama", e.target.value)
+                                }
+                                className={`${errors.nama ? "border-red-500" : ""}`}
+                            />
+                            {errors.nama && (
+                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                    {errors.nama}
+                                </FieldDescription>
+                            )}
+                        </Field>
+                        <Field>
+                            <FieldLabel>Nomor HP</FieldLabel>
+                            <Input
+                                type="text"
+                                value={data.no_hp}
+                                onChange={(e) =>
+                                    setData("no_hp", e.target.value)
+                                }
+                                className={`${errors.no_hp ? "border-red-500" : ""}`}
+                            />
+                            {errors.no_hp && (
+                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                    {errors.no_hp}
+                                </FieldDescription>
+                            )}
+                        </Field>
+                    </div>
                     <WilayahSelect
                         provinsi={provinsi}
                         kabupaten={kabupaten}

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('no_hp')->nullable();
             $table->string('alamat')->nullable();
             $table->string('kode_provinsi')->nullable();
             $table->string('kode_kabupaten')->nullable();
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->string('no_rekening')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique('user_id');
         });
     }
 

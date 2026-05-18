@@ -16,6 +16,7 @@ class TukangTableSeeder extends Seeder
         DB::table('tukang')->insert([
             [
                 'nama' => 'Tukang',
+                'no_hp' => '082210281092',
                 'kode_provinsi' => '32',
                 'kode_kabupaten' => '32.01',
                 'kode_kecamatan' => '32.01.15',

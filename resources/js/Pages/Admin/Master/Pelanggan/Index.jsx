@@ -42,6 +42,7 @@ export default function PelangganIndex() {
                                 <TableHead>No.</TableHead>
                                 <TableHead>Email</TableHead>
                                 <TableHead>Nama</TableHead>
+                                <TableHead>No. HP</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -57,6 +58,9 @@ export default function PelangganIndex() {
                                         <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.pelanggan.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan.no_hp}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
@@ -91,7 +95,7 @@ export default function PelangganIndex() {
                                 <TableEmpty
                                     title="Tidak ada Permission"
                                     description="Silahkan tambahkan permission baru"
-                                    colSpan={4}
+                                    colSpan={5}
                                 />
                             )}
                         </TableBody>

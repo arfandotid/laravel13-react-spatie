@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 #[Table('pelanggan')]
 #[Fillable([
     'nama',
+    'no_hp',
     'alamat',
     'kode_provinsi',
     'kode_kabupaten',
@@ -22,5 +23,23 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 
 class Pelanggan extends Model
 {
-    //
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class, 'kode_provinsi', 'kode');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode');
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'kode_provinsi', 'kode');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

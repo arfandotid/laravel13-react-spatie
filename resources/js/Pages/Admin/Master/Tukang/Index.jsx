@@ -42,6 +42,7 @@ export default function TukangIndex() {
                                 <TableHead>No.</TableHead>
                                 <TableHead>Email</TableHead>
                                 <TableHead>Nama</TableHead>
+                                <TableHead>No. HP</TableHead>
                                 <TableHead>Keahlian</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
@@ -58,6 +59,9 @@ export default function TukangIndex() {
                                         <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.tukang.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang.no_hp}
                                         </TableCell>
                                         <TableCell>
                                             {item.tukang.spesialis.length}{" "}
@@ -96,7 +100,7 @@ export default function TukangIndex() {
                                 <TableEmpty
                                     title="Tidak ada Permission"
                                     description="Silahkan tambahkan permission baru"
-                                    colSpan={5}
+                                    colSpan={6}
                                 />
                             )}
                         </TableBody>

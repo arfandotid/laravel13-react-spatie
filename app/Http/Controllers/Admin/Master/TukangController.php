@@ -17,7 +17,7 @@ class TukangController extends Controller
     {
         $tukang = User::query()
             ->role('tukang')
-            ->with(['tukang', 'tukang.spesialis'])
+            ->with(['tukang', 'tukang.spesialis', 'tukang.provinsi', 'tukang.kabupaten', 'tukang.kecamatan'])
             ->when(request()->q, function ($tukang) {
                 $tukang->where('name', 'like', '%' . request()->q . '%');
             })

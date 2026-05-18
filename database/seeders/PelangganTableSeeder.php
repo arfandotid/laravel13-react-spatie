@@ -16,6 +16,7 @@ class PelangganTableSeeder extends Seeder
         DB::table('pelanggan')->insert([
             [
                 'nama' => 'Pelanggan',
+                'no_hp' => '082210281091',
                 'alamat' => 'Ciampea',
                 'kode_provinsi' => '32',
                 'kode_kabupaten' => '32.01',

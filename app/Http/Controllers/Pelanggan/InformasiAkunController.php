@@ -32,6 +32,7 @@ class InformasiAkunController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'no_hp' => 'required|numeric',
             'kode_provinsi' => 'required',
             'kode_kabupaten' => 'required',
             'kode_kecamatan' => 'required',
@@ -47,6 +48,7 @@ class InformasiAkunController extends Controller
         
         $data = [
             'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
             'kode_provinsi' => $request->kode_provinsi,
             'kode_kabupaten' => $request->kode_kabupaten,
             'kode_kecamatan' => $request->kode_kecamatan,

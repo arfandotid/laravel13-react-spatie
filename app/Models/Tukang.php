@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 #[Table('tukang')]
 #[Fillable([
     'nama',
+    'no_hp',
     'kode_provinsi',
     'kode_kabupaten',
     'kode_kecamatan',
@@ -33,5 +34,20 @@ class Tukang extends Model
             'tukang_id',
             'spesialis_id'
         )->withPivot('harga_per_hari');
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'kode_provinsi', 'kode');
+    }
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class, 'kode_kabupaten', 'kode');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode');
     }
 }
