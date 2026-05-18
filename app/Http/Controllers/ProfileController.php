@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +11,7 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
+    use FileUploadTrait;
     public function index()
     {
         $user = Auth::user();
@@ -23,12 +25,17 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $userId,
             'username' => 'required|string|max:255|unique:users,username,' . $userId,
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $user = User::findOrFail($userId);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
+
+        if ($request->hasFile('photo')) {
+            $user->photo = $this->updateFile($request, 'photo', 'uploads/avatars', $user->photo);
+        }
 
         try {
             $user->save();
