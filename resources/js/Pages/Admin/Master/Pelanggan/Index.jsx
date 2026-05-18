@@ -55,7 +55,9 @@ export default function PelangganIndex() {
                                                     pelanggan.per_page}
                                         </TableCell>
                                         <TableCell>{item.email}</TableCell>
-                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell>
+                                            {item.pelanggan.nama}
+                                        </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
                                                 {hasAnyPermission([

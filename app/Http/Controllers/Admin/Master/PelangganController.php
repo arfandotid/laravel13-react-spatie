@@ -17,6 +17,7 @@ class PelangganController extends Controller
     {
         $pelanggan = User::query()
             ->role('pelanggan')
+            ->with(['pelanggan'])
             ->when(request()->q, function ($pelanggan) {
                 $pelanggan->where('name', 'like', '%' . request()->q . '%');
             })

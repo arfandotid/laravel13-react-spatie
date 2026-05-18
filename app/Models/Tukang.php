@@ -20,5 +20,18 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 ])]
 class Tukang extends Model
 {
-    //
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function spesialis()
+    {
+        return $this->belongsToMany(
+            Spesialis::class,
+            'spesialis_tukang',
+            'tukang_id',
+            'spesialis_id'
+        )->withPivot('harga_per_hari');
+    }
 }

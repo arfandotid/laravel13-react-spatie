@@ -25,9 +25,9 @@ export const menuItems = [
         href: "/tukang/keahlian",
     },
     {
-        name: "Pesanan Saya",
+        name: "Pekerjaan Saya",
         icon: BriefcaseBusiness,
-        href: "/tukang/pesanan",
+        href: "/tukang/pekerjaan",
     },
     {
         name: "Riwayat Pembayaran",

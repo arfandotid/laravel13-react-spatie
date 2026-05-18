@@ -17,10 +17,11 @@ class TukangController extends Controller
     {
         $tukang = User::query()
             ->role('tukang')
+            ->with(['tukang', 'tukang.spesialis'])
             ->when(request()->q, function ($tukang) {
                 $tukang->where('name', 'like', '%' . request()->q . '%');
             })
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->paginate(5)
             ->withQueryString();
 
