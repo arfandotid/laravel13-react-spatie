@@ -16,6 +16,8 @@ import {
     TableBody,
     TableCell,
 } from "@/Components/BasicTable";
+import { Badge } from "@/Components/ui/badge";
+import { APP_URL } from "@/constants/app";
 
 export default function UsersIndex() {
     const { users } = usePage().props;
@@ -39,11 +41,13 @@ export default function UsersIndex() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>No.</TableHead>
+                                <TableHead className="w-5">No.</TableHead>
+                                <TableHead className="w-5">Foto</TableHead>
                                 <TableHead>Nama</TableHead>
                                 <TableHead>Email</TableHead>
                                 <TableHead>Username</TableHead>
                                 <TableHead>Role</TableHead>
+                                <TableHead>Status</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -56,6 +60,15 @@ export default function UsersIndex() {
                                                 (users.current_page - 1) *
                                                     users.per_page}
                                         </TableCell>
+                                        <TableCell>
+                                            {user.photo && (
+                                                <img
+                                                    src={`${APP_URL}/uploads/avatars/${user.photo}`}
+                                                    alt={user.name}
+                                                    className="h-8 w-8 rounded-full object-cover"
+                                                />
+                                            )}
+                                        </TableCell>
                                         <TableCell>{user.name}</TableCell>
                                         <TableCell>{user.email}</TableCell>
                                         <TableCell>{user.username}</TableCell>
@@ -65,6 +78,23 @@ export default function UsersIndex() {
                                                       .map((role) => role.name)
                                                       .join(", ")
                                                 : "-"}
+                                        </TableCell>
+                                        <TableCell>
+                                            {user.is_active == "1" ? (
+                                                <Badge
+                                                    variant="default"
+                                                    className="bg-green-500"
+                                                >
+                                                    Aktif
+                                                </Badge>
+                                            ) : (
+                                                <Badge
+                                                    variant="default"
+                                                    className="bg-red-500"
+                                                >
+                                                    Non Aktif
+                                                </Badge>
+                                            )}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
@@ -99,7 +129,7 @@ export default function UsersIndex() {
                                 <TableEmpty
                                     title="Tidak ada User"
                                     description="Silahkan tambahkan user baru"
-                                    colSpan={6}
+                                    colSpan={8}
                                 />
                             )}
                         </TableBody>

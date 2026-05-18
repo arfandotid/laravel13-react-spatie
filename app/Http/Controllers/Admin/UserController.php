@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UserController extends Controller implements HasMiddleware
 {
+    use FileUploadTrait;
     public static function middleware()
     {
         return [
@@ -57,17 +59,27 @@ class UserController extends Controller implements HasMiddleware
             'password' => 'required|min:8',
             'roles'    => 'required|array',
             'roles.*'  => 'exists:roles,id',
+            'is_active' => 'required|boolean',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        $user = User::create([
+        $data = [
             'name'     => $request->name,
             'email'    => $request->email,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-        ]);
+            'is_active' => $request->is_active,
+        ];
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $this->uploadFile($request, 'photo', 'uploads/avatars');
+        }
+
+        $user = User::create($data);
 
         // assign role
-        $user->syncRoles($request->roles);
+        $roles = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+        $user->syncRoles($roles);
 
         return redirect()->to('/admin/users')->with('success', 'User created successfully.');
     }
@@ -90,29 +102,43 @@ class UserController extends Controller implements HasMiddleware
             'password' => 'nullable|min:8',
             'roles'    => 'required|array',
             'roles.*'  => 'exists:roles,id',
+            'is_active' => 'required|boolean',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        $user->update([
+        $data = [
             'name'     => $request->name,
             'email'    => $request->email,
             'username' => $request->username,
-        ]);
+            'is_active' => $request->is_active,
+        ];
 
-        // update password jika diisi
-        if ($request->password) {
-            $user->update([
-                'password' => Hash::make($request->password),
-            ]);
+        // update photo jika diisi
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $this->updateFile($request, 'photo', 'uploads/avatars', $user->photo);
         }
 
+        // update password jika diisi
+        if($request->password) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
         // sync role
-        $user->syncRoles($request->roles);
+        $roles = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+        $user->syncRoles($roles);
 
         return redirect()->to('/admin/users')->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
     {
+        if($user->photo) {
+            $path = "/uploads/avatars/".$user->photo;
+            $this->deleteFile($path);
+        }
+
         $user->delete();
 
         return redirect()->to('/admin/users')->with('success', 'User deleted successfully.');

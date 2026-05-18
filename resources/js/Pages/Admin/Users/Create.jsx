@@ -6,6 +6,7 @@ import { Field, FieldDescription, FieldLabel } from "@/Components/ui/field";
 import { Input } from "@/Components/ui/input";
 import { Checkbox } from "@/Components/ui/checkbox";
 import { Button } from "@/Components/ui/button";
+import StatusSelect from "@/Components/StatusSelect";
 
 export default function UsersCreate() {
     const { roles } = usePage().props;
@@ -16,6 +17,8 @@ export default function UsersCreate() {
         username: "",
         password: "",
         roles: [],
+        photo: null,
+        is_active: "",
     });
 
     const toggleRole = (id) => {
@@ -134,6 +137,29 @@ export default function UsersCreate() {
                                     {errors.roles}
                                 </p>
                             )}
+                        </Field>
+                        <Field>
+                            <FieldLabel>Foto</FieldLabel>
+                            <Input
+                                type="file"
+                                onChange={(e) =>
+                                    setData("photo", e.target.files[0])
+                                }
+                                accept=".jpg,.png,.webp,.jpeg"
+                                className={`${errors.photo ? "border-red-500" : ""}`}
+                            />
+                            {errors.photo && (
+                                <FieldDescription className="mt-1 text-sm text-red-600">
+                                    {errors.photo}
+                                </FieldDescription>
+                            )}
+                        </Field>
+                        <Field>
+                            <FieldLabel>Status</FieldLabel>
+                            <StatusSelect
+                                value={data.is_active}
+                                onChange={(val) => setData("is_active", val)}
+                            />
                         </Field>
                     </div>
                     <div className="flex justify-start space-x-2 pt-6">
