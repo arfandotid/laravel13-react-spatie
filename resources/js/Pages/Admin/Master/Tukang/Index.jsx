@@ -1,7 +1,7 @@
 import { Head, Link, usePage } from "@inertiajs/react";
 import LayoutApp from "@/Layouts/LayoutApp";
 import hasAnyPermission from "@/Utils/Permission";
-import { Edit } from "lucide-react";
+import { Edit, File } from "lucide-react";
 import PageHeader from "@/Shared/PageHeader";
 import TableEmpty from "@/Shared/TableEmpty";
 import Search from "@/Shared/Search";
@@ -16,6 +16,8 @@ import {
     TableBody,
     TableCell,
 } from "@/Components/BasicTable";
+import { Badge } from "@/Components/ui/badge";
+import { APP_URL } from "@/constants/app";
 
 export default function TukangIndex() {
     const { tukang } = usePage().props;
@@ -45,6 +47,8 @@ export default function TukangIndex() {
                                 <TableHead>Kecamatan</TableHead>
                                 <TableHead>Nama Bank</TableHead>
                                 <TableHead>No. Rekening</TableHead>
+                                <TableHead>Dokumen Pendukung</TableHead>
+                                <TableHead>Is Verified</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -84,6 +88,46 @@ export default function TukangIndex() {
                                             {item.tukang.no_rekening}
                                         </TableCell>
                                         <TableCell>
+                                            {item.tukang.dokumen_pendukung ? (
+                                                <a
+                                                    target="_blank"
+                                                    href={`${APP_URL}/uploads/dokumen-tukang/${item.tukang.dokumen_pendukung}`}
+                                                >
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                    >
+                                                        <File className="h-3 w-3" />
+                                                        Lihat File
+                                                    </Button>
+                                                </a>
+                                            ) : (
+                                                <Badge
+                                                    variant="default"
+                                                    className="bg-yellow-500"
+                                                >
+                                                    Belum Upload
+                                                </Badge>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang.is_verified == "1" ? (
+                                                <Badge
+                                                    variant="default"
+                                                    className="bg-green-500"
+                                                >
+                                                    Terverifikasi
+                                                </Badge>
+                                            ) : (
+                                                <Badge
+                                                    variant="default"
+                                                    className="bg-red-500"
+                                                >
+                                                    Belum Terverifikasi
+                                                </Badge>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
                                             <div className="flex items-center space-x-2">
                                                 {hasAnyPermission([
                                                     "tukang.edit",
@@ -116,7 +160,7 @@ export default function TukangIndex() {
                                 <TableEmpty
                                     title="Tidak ada Tukang"
                                     description="Belum ada tukang terdaftar"
-                                    colSpan={11}
+                                    colSpan={13}
                                 />
                             )}
                         </TableBody>
