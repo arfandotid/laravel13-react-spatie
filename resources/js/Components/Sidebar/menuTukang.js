@@ -1,11 +1,10 @@
 // import icons
 import {
     BriefcaseBusiness,
-    Cog,
     LayoutDashboard,
-    User,
     UserCog,
     Wallet,
+    Wrench,
 } from "lucide-react";
 
 // Menu items dengan permission check
@@ -19,6 +18,11 @@ export const menuItems = [
         name: "Informasi Akun",
         icon: UserCog,
         href: "/tukang/informasi-akun",
+    },
+    {
+        name: "Keahlian Saya",
+        icon: Wrench,
+        href: "/tukang/keahlian",
     },
     {
         name: "Pesanan Saya",

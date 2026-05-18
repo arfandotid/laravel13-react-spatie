@@ -11,4 +11,7 @@ Route::middleware(['auth', 'role:tukang'])
         // informasi akun
         Route::get('/informasi-akun', [App\Http\Controllers\Tukang\InformasiAkunController::class, 'index'])->name('informasi-akun.index');
         Route::put('/informasi-akun', [App\Http\Controllers\Tukang\InformasiAkunController::class, 'update'])->name('informasi-akun.update');
+
+        // keahlian
+        Route::resource('keahlian', App\Http\Controllers\Tukang\KeahlianController::class);
 });
