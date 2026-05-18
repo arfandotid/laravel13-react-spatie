@@ -25,12 +25,8 @@ export default function TukangIndex() {
             <Head title={`Tukang`} />
             <LayoutApp>
                 <PageHeader
-                    showButton
                     title="Tukang"
                     description="Kelola tukang yang terdaftar"
-                    action="/admin/tukang/create"
-                    actionText="Tambah Tukang"
-                    permission="tukang.create"
                 />
 
                 <div className="space-y-5">
@@ -40,10 +36,15 @@ export default function TukangIndex() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>No.</TableHead>
-                                <TableHead>Email</TableHead>
                                 <TableHead>Nama</TableHead>
+                                <TableHead>Email</TableHead>
                                 <TableHead>No. HP</TableHead>
                                 <TableHead>Keahlian</TableHead>
+                                <TableHead>Provinsi</TableHead>
+                                <TableHead>Kabupaten</TableHead>
+                                <TableHead>Kecamatan</TableHead>
+                                <TableHead>Nama Bank</TableHead>
+                                <TableHead>No. Rekening</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -56,16 +57,31 @@ export default function TukangIndex() {
                                                 (tukang.current_page - 1) *
                                                     tukang.per_page}
                                         </TableCell>
-                                        <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.tukang.nama}
                                         </TableCell>
+                                        <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.tukang.no_hp}
                                         </TableCell>
                                         <TableCell>
                                             {item.tukang.spesialis.length}{" "}
                                             Keahlian
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang?.provinsi?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang?.kabupaten?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang?.kecamatan?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang.nama_bank}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.tukang.no_rekening}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
@@ -98,9 +114,9 @@ export default function TukangIndex() {
                                 ))
                             ) : (
                                 <TableEmpty
-                                    title="Tidak ada Permission"
-                                    description="Silahkan tambahkan permission baru"
-                                    colSpan={6}
+                                    title="Tidak ada Tukang"
+                                    description="Belum ada tukang terdaftar"
+                                    colSpan={11}
                                 />
                             )}
                         </TableBody>

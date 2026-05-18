@@ -19,9 +19,26 @@ class PelangganController extends Controller
             ->role('pelanggan')
             ->with(['pelanggan', 'pelanggan.provinsi', 'pelanggan.kabupaten', 'pelanggan.kecamatan'])
             ->when(request()->q, function ($pelanggan) {
-                $pelanggan->where('name', 'like', '%' . request()->q . '%');
+                $pelanggan->where('name', 'like', '%' . request()->q . '%')
+                    ->orWhere('email', 'like', '%' . request()->q . '%')
+                    ->orWhereHas('pelanggan', function ($pelanggan) {
+                        $pelanggan->where('no_hp', 'like', '%' . request()->q . '%')
+                            ->orWhere('nama', 'like', '%' . request()->q . '%')
+                            ->orWhere('alamat', 'like', '%' . request()->q . '%')
+                            ->orWhere('nama_bank', 'like', '%' . request()->q . '%')
+                            ->orWhere('no_rekening', 'like', '%' . request()->q . '%')
+                            ->orWhereHas('provinsi', function($provinsi) {
+                                $provinsi->where('nama', 'like', '%' . request()->q . '%');
+                            })
+                            ->orWhereHas('kabupaten', function($kabupaten) {
+                                $kabupaten->where('nama', 'like', '%' . request()->q . '%');
+                            })
+                            ->orWhereHas('kecamatan', function($kecamatan) {
+                                $kecamatan->where('nama', 'like', '%' . request()->q . '%');
+                            });
+                    });
             })
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->paginate(5)
             ->withQueryString();
 

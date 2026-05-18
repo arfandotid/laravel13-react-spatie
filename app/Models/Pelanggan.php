@@ -23,19 +23,18 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 
 class Pelanggan extends Model
 {
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'kode_provinsi', 'kode');
+    }
     public function kabupaten()
     {
-        return $this->belongsTo(Kabupaten::class, 'kode_provinsi', 'kode');
+        return $this->belongsTo(Kabupaten::class, 'kode_kabupaten', 'kode');
     }
 
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode');
-    }
-
-    public function provinsi()
-    {
-        return $this->belongsTo(Provinsi::class, 'kode_provinsi', 'kode');
     }
 
     public function user()

@@ -25,12 +25,8 @@ export default function PelangganIndex() {
             <Head title={`Pelanggan`} />
             <LayoutApp>
                 <PageHeader
-                    showButton
                     title="Pelanggan"
                     description="Kelola pelanggan yang terdaftar"
-                    action="/admin/pelanggan/create"
-                    actionText="Tambah Pelanggan"
-                    permission="pelanggan.create"
                 />
 
                 <div className="space-y-5">
@@ -40,9 +36,15 @@ export default function PelangganIndex() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>No.</TableHead>
-                                <TableHead>Email</TableHead>
                                 <TableHead>Nama</TableHead>
+                                <TableHead>Email</TableHead>
                                 <TableHead>No. HP</TableHead>
+                                <TableHead>Alamat</TableHead>
+                                <TableHead>Provinsi</TableHead>
+                                <TableHead>Kabupaten</TableHead>
+                                <TableHead>Kecamatan</TableHead>
+                                <TableHead>Nama Bank</TableHead>
+                                <TableHead>No. Rekening</TableHead>
                                 <TableHead className="w-7">Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -55,12 +57,30 @@ export default function PelangganIndex() {
                                                 (pelanggan.current_page - 1) *
                                                     pelanggan.per_page}
                                         </TableCell>
-                                        <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.pelanggan.nama}
                                         </TableCell>
+                                        <TableCell>{item.email}</TableCell>
                                         <TableCell>
                                             {item.pelanggan.no_hp}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan.alamat}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan?.provinsi?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan?.kabupaten?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan?.kecamatan?.nama}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan.nama_bank}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.pelanggan.no_rekening}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center space-x-2">
@@ -93,9 +113,9 @@ export default function PelangganIndex() {
                                 ))
                             ) : (
                                 <TableEmpty
-                                    title="Tidak ada Permission"
-                                    description="Silahkan tambahkan permission baru"
-                                    colSpan={5}
+                                    title="Tidak ada Pelanggan"
+                                    description="Belum ada pelanggan terdaftar"
+                                    colSpan={11}
                                 />
                             )}
                         </TableBody>
